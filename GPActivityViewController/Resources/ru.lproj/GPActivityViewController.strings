@@ -1,0 +1,29 @@
+/* Mail */
+"ACTIVITY_MAIL"="Mail";
+
+/* Copy */
+"ACTIVITY_COPY"="Скопировать";
+
+/* Facebook */
+"ACTIVITY_FACEBOOK"="Facebook";
+
+/* Message */
+"ACTIVITY_MESSAGE"="Сообщение";
+
+/* Twitter */
+"ACTIVITY_TWITTER"="Twitter";
+
+/* VKontakte */
+"ACTIVITY_VKONTAKTE"="ВКонтакте";
+
+/* Odnoklassniki */
+"ACTIVITY_ODNOKLASSNIKI"="Одноклассники";
+
+
+"ACTIVITY_CUSTOM"="Custom";
+
+/* Buttons */
+"BUTTON_CANCEL"="Отмена";
+"BUTTON_DISMISS"="ОК";
+"BUTTON_LOGIN"="Войти";
+"BUTTON_POST"="Отпр.";
