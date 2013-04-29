@@ -184,14 +184,18 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         return;
     
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    
     __typeof(&*self) __weak weakSelf = self;
     [UIView animateWithDuration:duration animations:^() {
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-            [weakSelf updateGridFrame:CGSizeMake(480, 300)];
+            NSUInteger statusBarHeight = CGRectGetWidth([UIApplication sharedApplication].statusBarFrame);
+            [weakSelf updateGridFrame:CGSizeMake(size.height, size.width - statusBarHeight)];
         } else {
-            [weakSelf updateGridFrame:CGSizeMake(320, 460)];
+            NSUInteger statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+            [weakSelf updateGridFrame:CGSizeMake(size.width, size.height - statusBarHeight)];
         }
-    }];   
+    }];  
 }
 
 #pragma mark -
