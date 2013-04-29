@@ -3,10 +3,19 @@ GPActivityViewController
 
 Alternative to UIActivityViewController compatible with iOS5.0
 
+###Supported activities
+* Facebook
+* Twitter
+* Vkontakte
+* Odnoklassniki
+* Mail
+* Messages
+* Copy
+
 
 ###Requirements
 * XCode 4.4+
-* Deployment Target 5.0+
+* Deployment Target iOS5.0+
 * ARC
 
 ##Social networks integration
@@ -20,4 +29,3 @@ Alternative to UIActivityViewController compatible with iOS5.0
 
 ###Vkontakte
 * Set up **VKontakteAppID** property in your info.plist file
-
