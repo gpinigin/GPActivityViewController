@@ -29,3 +29,7 @@ Alternative to UIActivityViewController compatible with iOS5.0
 
 ###Vkontakte
 * Set up **VKontakteAppID** property in your info.plist file
+
+
+##Credits
+Partially based on [REActivityViewController](https://github.com/romaonthego/REActivityViewController)
