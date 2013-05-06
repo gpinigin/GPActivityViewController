@@ -55,7 +55,9 @@ Alternative to UIActivityViewController compatible with iOS5.0
     GPOKActivity *okActivity = [GPOKActivity new];
     GPVKActivity *vkActivity = [GPVKActivity new];
     
-    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[mailActivity, messageActivity, facebookActivity, twitterActivity, vkActivity, okActivity, copyActivity]];
+    NSArray *activities = @[mailActivity, messageActivity, facebookActivity, twitterActivity,
+                            vkActivity, okActivity, copyActivity];
+    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:activities];
 
     controller.userInfo = @{@"text":@"Message to pass to activities",
                             @"url":[NSURL URLWithString:@"https://github.com/gpinigin"]};
