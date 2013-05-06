@@ -47,7 +47,7 @@ Alternative to UIActivityViewController compatible with iOS5.0
    GPTwitterActivity *twitterActivity = [[GPTwitterActivity alloc] init];
    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[facebookActivity, twitterActivity]];
    
-   controller.userInfo = @{@"text":"Message to pass to activities"};
+   controller.userInfo = @{@"text":@"Message to pass to activities"};
    
      
    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
