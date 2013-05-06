@@ -3,6 +3,9 @@ GPActivityViewController
 
 Alternative to UIActivityViewController compatible with iOS5.0
 
+![Screenshot](https://github.com/gpinigin/GPActivityViewController/raw/master/Activities.png)
+
+
 ###Supported activities
 * Facebook
 * Twitter
@@ -43,23 +46,35 @@ Alternative to UIActivityViewController compatible with iOS5.0
 ## Usage
 ### Activity controller
 ``` objective-c
-   GPFacebookActivity *facebookActivity = [[GPFacebookActivity alloc] init];
-   GPTwitterActivity *twitterActivity = [[GPTwitterActivity alloc] init];
-   GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[facebookActivity, twitterActivity]];
-   
-   controller.userInfo = @{@"text":@"Message to pass to activities"};
-   
-     
-   if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-       // iPad specific
-       UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
-       controller.presentingPopoverController = self.popoverController;
-       [popoverController presentPopoverFromBarButtonItem:myNavigationBarButton                 
-                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-   } else {
-        // iPhone specific 
+    // DO NOT forget to  setup application IDs in info.plist. For more info see README.md
+    GPFacebookActivity *facebookActivity = [GPFacebookActivity new];
+    GPTwitterActivity *twitterActivity = [GPTwitterActivity new];
+    GPCopyActivity *copyActivity = [GPCopyActivity new];
+    GPMailActivity *mailActivity = [GPMailActivity new];
+    GPMessageActivity *messageActivity = [GPMessageActivity new];
+    GPOKActivity *okActivity = [GPOKActivity new];
+    GPVKActivity *vkActivity = [GPVKActivity new];
+    
+    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[mailActivity, messageActivity, facebookActivity, twitterActivity, vkActivity, okActivity, copyActivity]];
+
+    controller.userInfo = @{@"text":@"Message to pass to activities",
+                            @"url":[NSURL URLWithString:@"https://github.com/gpinigin"]};
+    
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // iPad specific
+        if (self.myPopoverController.isPopoverVisible) {
+            [self.myPopoverController dismissPopoverAnimated:YES];
+        } else {        
+            self.myPopoverController= [[UIPopoverController alloc] initWithContentViewController:controller];
+            controller.presentingPopoverController = self.myPopoverController;
+            [self.myPopoverController presentPopoverFromBarButtonItem:self.myNavigationBarButton
+                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+    } else {
+        // iPhone specific
         [controller presentFromWindow];
-   } 
+    }
 ```
 
 ### Subclassing notes
@@ -73,6 +88,8 @@ Alternative to UIActivityViewController compatible with iOS5.0
 // Override to implement your activity behavior
 - (void)performActivity;
 ```
+
+Note for iOS5.0: if autoorientation behavior of your controller isn't match to one of GPActivityViewController you MUST subclass GPActivityViewController to override autorotation behavior or present controller modally
 
 ### Custom activities
 You also can make your custom activity using block approach:
