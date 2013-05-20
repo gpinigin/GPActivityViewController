@@ -63,8 +63,10 @@ NSString *const GPActivityFacebook = @"GPActivityFacebook";
     UIViewController *presentingController = [UIApplication sharedApplication].delegate.window.rootViewController;
     presentingController.modalPresentationStyle = UIModalPresentationCurrentContext;
     
-    __typeof(&*self) __weak weakSelf = self;
+    typeof(self) __weak weakSelf = self;
+    typeof(composeController) __weak weakComposer = composeController;
     composeController.completionHandler = ^(DEFacebookComposeViewControllerResult result) {
+        [weakComposer dismissViewControllerAnimated:YES completion:nil];
         [weakSelf activityFinished:result == DEFacebookComposeViewControllerResultDone];
     };
     
