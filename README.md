@@ -33,11 +33,11 @@ Alternative to UIActivityViewController compatible with iOS5.0
 ##Social networks integration
 ###Facebook
 * Set up **FacebookAppID** property in your info.plist file, i.e.  FacebookAppID = 12345678
-* Set up URL scheme for facebook redirect: fb<FacebookAppID> , where <FacebookAppID> - Facebook application ID
+* Set up URL scheme for facebook redirect: fbFacebookAppID , where FacebookAppID - Facebook application ID
 
 ###Odnoklassniki
 * Set up properties **OdnoklassnikiAppID**, **OdnoklassnikiSecretKey**, **OdnoklassnikiAppKey** in your info.plist file.
-* Set up URL scheme for redirect: ok<OdnoklassnikiAppID> , where <OdnoklassnikiAppID> - Odnoklassniki application ID
+* Set up URL scheme for redirect: okOdnoklassnikiAppID , where OdnoklassnikiAppID - Odnoklassniki application ID
 
 ###Vkontakte
 * Set up **VKontakteAppID** property in your info.plist file
