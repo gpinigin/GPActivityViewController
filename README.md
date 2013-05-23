@@ -16,7 +16,7 @@ Alternative to UIActivityViewController compatible with iOS5.0
 * Copy
 
 
-###Requirements
+### Requirements
 * XCode 4.4+
 * Deployment Target iOS5.0+
 * ARC
@@ -28,6 +28,15 @@ Alternative to UIActivityViewController compatible with iOS5.0
 * Custom activities
 * Activity customization
 * ActivityViewController completion handler
+ 
+## Installation
+The recommended way is to use [CocoaPods](http://cocoapods.org/) package manager.
+
+To install using CocoaPods open your Podfile and add:
+``` bash
+ pod 'GPActivityViewController', '~> 1.0.0'
+```
+
 
 
 ##Social networks integration
