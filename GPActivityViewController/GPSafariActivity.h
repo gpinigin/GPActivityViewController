@@ -20,11 +20,11 @@
 // THE SOFTWARE.
 //
 
-#import "GPFacebookActivity.h"
-#import "GPTwitterActivity.h"
-#import "GPMessageActivity.h"
-#import "GPMailActivity.h"
-#import "GPCopyActivity.h"
-#import "GPVKActivity.h"
-#import "GPOKActivity.h"
-#import "GPSafariActivity.h"
+
+#import "GPActivity.h"
+
+extern NSString *const kGPSafariActivity;
+
+@interface GPSafariActivity : GPActivity
+
+@end

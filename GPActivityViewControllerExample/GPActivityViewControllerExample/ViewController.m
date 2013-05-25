@@ -27,8 +27,9 @@
     GPMessageActivity *messageActivity = [GPMessageActivity new];
     GPOKActivity *okActivity = [GPOKActivity new];
     GPVKActivity *vkActivity = [GPVKActivity new];
+    GPSafariActivity *safariActivity = [GPSafariActivity new];
     
-    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[mailActivity, messageActivity, facebookActivity, twitterActivity, vkActivity, okActivity, copyActivity]];
+    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[mailActivity, messageActivity, safariActivity, facebookActivity, twitterActivity, vkActivity, okActivity, copyActivity]];
 
     controller.userInfo = @{@"text":@"Message to pass to activities",
                             @"url":[NSURL URLWithString:@"https://github.com/gpinigin"]};

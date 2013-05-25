@@ -19,6 +19,9 @@
 /* Odnoklassniki */
 "ACTIVITY_ODNOKLASSNIKI"="Одноклассники";
 
+/* Safari */
+"ACTIVITY_SAFARI"="Открыть в Safari";
+
 
 "ACTIVITY_CUSTOM"="Custom";
 

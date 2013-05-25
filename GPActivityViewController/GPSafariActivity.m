@@ -20,11 +20,32 @@
 // THE SOFTWARE.
 //
 
-#import "GPFacebookActivity.h"
-#import "GPTwitterActivity.h"
-#import "GPMessageActivity.h"
-#import "GPMailActivity.h"
-#import "GPCopyActivity.h"
-#import "GPVKActivity.h"
-#import "GPOKActivity.h"
+
 #import "GPSafariActivity.h"
+
+NSString *const kGPSafariActivity = @"GPSafariActivity";
+
+@implementation GPSafariActivity
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.title = NSLocalizedStringFromTable(@"ACTIVITY_SAFARI", @"GPActivityViewController", @"Open in Safari");
+        self.image = [UIImage imageNamed:@"GPActivityViewController.bundle/shareSafari"];
+    }
+    
+    return self;
+}
+
+#pragma mark -
+
+- (void)performActivity {
+    NSURL *url = [self.userInfo objectForKey:@"url"];
+    [[UIApplication sharedApplication] openURL:url];   
+}
+
+- (NSString *)activityType {
+    return kGPSafariActivity;
+}
+
+@end
