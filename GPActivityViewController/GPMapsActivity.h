@@ -23,6 +23,8 @@
 
 #import "GPActivity.h"
 
+extern NSString *const kGPActivityMaps;
+
 @interface GPMapsActivity : GPActivity
 
 @end
