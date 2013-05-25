@@ -29,3 +29,4 @@
 #import "GPOKActivity.h"
 #import "GPSafariActivity.h"
 #import "GPMapsActivity.h"
+#import "GPPhotoActivity.h"

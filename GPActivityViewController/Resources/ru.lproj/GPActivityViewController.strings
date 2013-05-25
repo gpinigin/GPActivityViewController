@@ -25,6 +25,9 @@
 /* Maps */
 "ACTIVITY_MAPS"="Открыть в Maps";
 
+/* Photos */
+"ACTIVITY_PHOTO"="Добавить в Фотопоток";
+
 
 "ACTIVITY_CUSTOM"="Custom";
 

@@ -25,6 +25,9 @@
 /* Maps */
 "ACTIVITY_MAPS"="Open in Maps";
 
+/* Photos */
+"ACTIVITY_PHOTO"="Save to Camera Roll";
+
 "ACTIVITY_CUSTOM"="Custom";
 
 /* Buttons */

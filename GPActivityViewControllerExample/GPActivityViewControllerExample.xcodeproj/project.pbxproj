@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8B2E38993E3D449EAFF18942 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9670881A504DE4A3DE62D7 /* libPods.a */; };
+		A7271C2317509986006B33D0 /* Activities.png in Resources */ = {isa = PBXBuildFile; fileRef = A7271C2217509986006B33D0 /* Activities.png */; };
 		A762DB3A1737726900F51D94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A762DB391737726900F51D94 /* UIKit.framework */; };
 		A762DB3C1737726900F51D94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A762DB3B1737726900F51D94 /* Foundation.framework */; };
 		A762DB3E1737726900F51D94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A762DB3D1737726900F51D94 /* CoreGraphics.framework */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		9E3D610392C04AE485B60986 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		A7271C2217509986006B33D0 /* Activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Activities.png; sourceTree = SOURCE_ROOT; };
 		A762DB361737726900F51D94 /* GPActivityViewControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPActivityViewControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A762DB391737726900F51D94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A762DB3B1737726900F51D94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,10 +61,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A7271C2117509977006B33D0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A7271C2217509986006B33D0 /* Activities.png */,
+			);
+			name = Resources;
+			path = GPActivityViewControllerExample;
+			sourceTree = "<group>";
+		};
 		A762DB2D1737726900F51D94 = {
 			isa = PBXGroup;
 			children = (
 				A762DB3F1737726900F51D94 /* GPActivityViewControllerExample */,
+				A7271C2117509977006B33D0 /* Resources */,
 				A762DB381737726900F51D94 /* Frameworks */,
 				A762DB371737726900F51D94 /* Products */,
 				9E3D610392C04AE485B60986 /* Pods.xcconfig */,
@@ -176,6 +188,7 @@
 				A762DB501737726900F51D94 /* Default-568h@2x.png in Resources */,
 				A762DB561737726900F51D94 /* ViewController~iphone.xib in Resources */,
 				A762DB591737726900F51D94 /* ViewController~ipad.xib in Resources */,
+				A7271C2317509986006B33D0 /* Activities.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
