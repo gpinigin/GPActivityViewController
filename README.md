@@ -14,6 +14,9 @@ Alternative to UIActivityViewController compatible with iOS5.0
 * Mail
 * Messages
 * Copy
+* Camera Roll
+* Maps
+* Safari
 
 
 ### Requirements
