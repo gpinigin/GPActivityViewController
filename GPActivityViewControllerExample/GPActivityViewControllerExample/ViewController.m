@@ -28,11 +28,15 @@
     GPOKActivity *okActivity = [GPOKActivity new];
     GPVKActivity *vkActivity = [GPVKActivity new];
     GPSafariActivity *safariActivity = [GPSafariActivity new];
+    GPMapsActivity *mapsActivity = [GPMapsActivity new];
     
-    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[mailActivity, messageActivity, safariActivity, facebookActivity, twitterActivity, vkActivity, okActivity, copyActivity]];
+    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[mailActivity, messageActivity, safariActivity, mapsActivity, facebookActivity, twitterActivity, vkActivity, okActivity, copyActivity]];
 
     controller.userInfo = @{@"text":@"Message to pass to activities",
-                            @"url":[NSURL URLWithString:@"https://github.com/gpinigin"]};
+                            @"url":[NSURL URLWithString:@"https://github.com/gpinigin"],
+                            @"coordinate":@{@"latitude":@(55.01769),
+                                            @"longitude":@(82.945104)},
+                            @"location":@"Novosibirsk"};
     
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

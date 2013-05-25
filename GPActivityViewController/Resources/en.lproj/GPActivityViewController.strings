@@ -22,6 +22,9 @@
 /* Safari */
 "ACTIVITY_SAFARI"="Open in Safari";
 
+/* Maps */
+"ACTIVITY_MAPS"="Open in Maps";
+
 "ACTIVITY_CUSTOM"="Custom";
 
 /* Buttons */

@@ -20,12 +20,9 @@
 // THE SOFTWARE.
 //
 
-#import "GPFacebookActivity.h"
-#import "GPTwitterActivity.h"
-#import "GPMessageActivity.h"
-#import "GPMailActivity.h"
-#import "GPCopyActivity.h"
-#import "GPVKActivity.h"
-#import "GPOKActivity.h"
-#import "GPSafariActivity.h"
-#import "GPMapsActivity.h"
+
+#import "GPActivity.h"
+
+@interface GPMapsActivity : GPActivity
+
+@end

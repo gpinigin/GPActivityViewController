@@ -22,6 +22,9 @@
 /* Safari */
 "ACTIVITY_SAFARI"="Открыть в Safari";
 
+/* Maps */
+"ACTIVITY_MAPS"="Открыть в Maps";
+
 
 "ACTIVITY_CUSTOM"="Custom";
 
