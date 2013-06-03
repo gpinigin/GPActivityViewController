@@ -41,17 +41,23 @@ NSString *const GPActivityTwitter = @"GPActivityTwitter";
 #pragma mark - 
 
 - (void)performActivity {
-    __typeof(&*self) __weak weakSelf = self;
+    __typeof(self) __weak weakSelf = self;
     
     id composeController;
     if ([SLComposeViewController class]) {
         composeController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        typeof(composeController) __weak weakComposer = composeController;
         ((SLComposeViewController *)composeController).completionHandler = ^(SLComposeViewControllerResult result) {
+            [weakComposer dismissViewControllerAnimated:YES completion:nil];
             [weakSelf activityFinished:(result == SLComposeViewControllerResultDone)];
         };
     } else {
         composeController = [[TWTweetComposeViewController alloc] init];
+        
+        typeof(composeController) __weak weakComposer = composeController;
         ((TWTweetComposeViewController *)composeController).completionHandler = ^(TWTweetComposeViewControllerResult result) {
+            [weakComposer dismissViewControllerAnimated:YES completion:nil];
             [weakSelf activityFinished:(result == TWTweetComposeViewControllerResultDone)];
         };
     }
