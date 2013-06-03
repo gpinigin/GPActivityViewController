@@ -71,7 +71,7 @@ NSString *const GPActivityOdnoklassniki = @"GPActivityOdnoklassniki";
         controller.attachmentImage = image;
     }
     
-    __typeof(&*self) __weak weakSelf = self;
+    __typeof(self) __weak weakSelf = self;
     controller.completionHandler = ^(REComposeViewController *composeViewController, REComposeResult result) {
         if (result == REComposeResultPosted) {
             if ([OdnoklassnikiMgr sharedInstance].accessToken) {

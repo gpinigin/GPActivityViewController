@@ -86,7 +86,7 @@
             [super dismissViewControllerAnimated:flag completion:completion];
         }
         
-        __typeof (&*self) __weak weakSelf = self;
+        __typeof(self) __weak weakSelf = self;
         [UIView animateWithDuration:0.4 animations:^{
             _backgroundView.alpha = 0;
             CGRect frame = _activityView.frame;
@@ -116,7 +116,7 @@
     
     _backgroundView.frame = controller.view.bounds;
     
-    __typeof (&*self) __weak weakSelf = self;
+    __typeof(self) __weak weakSelf = self;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [UIView animateWithDuration:0.4 animations:^{
             weakSelf.backgroundView.alpha = 0.4;
@@ -137,7 +137,7 @@
     
     _backgroundView.frame = self.view.bounds;
     
-    __typeof (&*self) __weak weakSelf = self;
+    __typeof(self) __weak weakSelf = self;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [UIView animateWithDuration:0.4 animations:^{
             weakSelf.backgroundView.alpha = 0.4;
@@ -186,7 +186,7 @@
     
     CGSize size = [UIScreen mainScreen].bounds.size;
     
-    __typeof(&*self) __weak weakSelf = self;
+    __typeof(self) __weak weakSelf = self;
     [UIView animateWithDuration:duration animations:^() {
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             NSUInteger statusBarHeight = CGRectGetWidth([UIApplication sharedApplication].statusBarFrame);
