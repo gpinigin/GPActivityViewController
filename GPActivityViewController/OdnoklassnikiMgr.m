@@ -238,7 +238,7 @@ static OdnoklassnikiMgr *instance = nil;
     NSString *body = [tokenRequestURL query];
     [tokenRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     
-    __typeof(self) __weak weakSelf = self;
+    typeof(self) __weak weakSelf = self;
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:tokenRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         [weakSelf setAccessToken:[JSON objectForKey:@"access_token"]];
         
@@ -275,7 +275,7 @@ static OdnoklassnikiMgr *instance = nil;
     NSString *body = [tokenRequestURL query];
     [tokenRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     
-    __typeof(self) __weak weakSelf = self;
+    typeof(self) __weak weakSelf = self;
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:tokenRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         [weakSelf setAccessToken:[JSON objectForKey:@"access_token"]];
         [weakSelf setRefreshToken:[JSON objectForKey:@"refresh_token"]];
@@ -312,7 +312,7 @@ static OdnoklassnikiMgr *instance = nil;
     NSURL *requestURL = [[NSURL URLWithString:kOKAPIEntryPointURL] serializeURLWithParams:params];    
     NSMutableURLRequest *shareRequest = [NSMutableURLRequest requestWithURL:requestURL];
     
-    __typeof(self) __weak weakSelf = self;
+    typeof(self) __weak weakSelf = self;
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:shareRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
         int errorCode = [[JSON objectForKey:@"error_code"] integerValue];

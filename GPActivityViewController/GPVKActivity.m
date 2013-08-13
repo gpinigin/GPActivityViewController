@@ -72,7 +72,7 @@ NSString *const GPActivityVKontakte = @"GPActivityVKontakte";
         controller.navigationItem.rightBarButtonItem.title = title;
     }
     
-    __typeof(self) __weak weakSelf = self;
+    typeof(self) __weak weakSelf = self;
     controller.completionHandler = ^(REComposeViewController *composeViewController, REComposeResult result) {
         
         if (result == REComposeResultPosted) {

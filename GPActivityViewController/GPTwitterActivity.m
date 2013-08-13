@@ -41,7 +41,7 @@ NSString *const GPActivityTwitter = @"GPActivityTwitter";
 #pragma mark - 
 
 - (void)performActivity {
-    __typeof(self) __weak weakSelf = self;
+    typeof(self) __weak weakSelf = self;
     
     id composeController;
     if ([SLComposeViewController class]) {

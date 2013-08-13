@@ -26,16 +26,19 @@
 @implementation NSURL (Additions)
 
 - (NSURL *)serializeURLWithParams:(NSDictionary *)params {
-	NSString* queryPrefix = self.query ? @"&" : @"?";
+    if (params == nil)
+        return self;
     
-	NSMutableArray* pairs = [NSMutableArray array];
-	for (NSString* key in [params keyEnumerator]) {
-		NSString* escaped_value = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                                               (CFStringRef)[params objectForKey:key],                                                                                          NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                               kCFStringEncodingUTF8);
+	NSString *queryPrefix = self.query ? @"&" : @"?";
+    
+	NSMutableArray *pairs = [NSMutableArray array];
+	for (NSString *key in [params keyEnumerator]) {
+        NSString *value = [params objectForKey:key];
+		NSString *escapedValue = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-		[pairs addObject:[NSString stringWithFormat:@"%@=%@", key, escaped_value]];
+		[pairs addObject:[NSString stringWithFormat:@"%@=%@", key, escapedValue]];
 	}
+    
 	NSString* query = [pairs componentsJoinedByString:@"&"];
     
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", self, queryPrefix, query]];
