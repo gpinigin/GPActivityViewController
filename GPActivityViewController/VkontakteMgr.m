@@ -181,7 +181,7 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
 #pragma mark - helpers
 
 - (NSURL *)requestURLWithMethod:(NSString *)methodName {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kVKEntryPoint, methodName]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kVKEntryPoint, methodName]];
 }
 
 #pragma mark - VK sharing
@@ -264,7 +264,7 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
 
 - (void)shareText:(NSString *)text image:(UIImage *)image {
     
-    __typeof(&*self) __weak weakSelf = self;
+    __typeof(self) __weak weakSelf = self;
     [self requestPhotoUploadURLWithSuccess:^(NSString *uploadURL) {
         [weakSelf uploadImage:image toURL:uploadURL success:^(NSString *hash, NSString *photo, NSString *server) {
             [weakSelf saveImageToWallWithHash:hash photo:photo server:server success:^(NSString *wallPhotoId) {
