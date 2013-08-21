@@ -37,7 +37,7 @@ The recommended way is to use [CocoaPods](http://cocoapods.org/) package manager
 
 To install using CocoaPods open your Podfile and add:
 ``` bash
- pod 'GPActivityViewController', '~> 1.1.0'
+pod 'GPActivityViewController', :git => 'https://github.com/gpinigin/GPActivityViewController.git'
 ```
 
 
