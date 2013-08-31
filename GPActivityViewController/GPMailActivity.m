@@ -60,7 +60,7 @@ NSString *const GPActivityMail = @"GPActivityMail";
         message = [message stringByAppendingString:url.absoluteString];
     }
     
-    [mailComposeViewController setMessageBody:text isHTML:YES];
+    [mailComposeViewController setMessageBody:message isHTML:YES];
         
     
     if (image) {
