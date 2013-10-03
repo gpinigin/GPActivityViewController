@@ -23,6 +23,18 @@
 #import <UIKit/UIKit.h>
 #import "GPActivity.h"
 
+#ifdef __IPHONE_7_0
+    #ifdef NSFoundationVersionNumber_iOS_6_1
+        #define UI_IS_IOS7() (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+    #endif
+#endif
+
+#ifndef UI_IS_IOS7
+    #define UI_IS_IOS7() (NO)
+#endif
+
+
+
 @protocol ActivityViewActionDelegate <NSObject>
 
 @required
@@ -32,13 +44,10 @@
 @end
 
 
-@interface GPActivityView : UIView <UIScrollViewDelegate> {
-    UIPageControl *_pageControl;
-}
+@interface GPActivityView : UIView
 
 @property (nonatomic, unsafe_unretained) id<ActivityViewActionDelegate> delegate;
 
-@property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIButton *cancelButton;
 

@@ -23,8 +23,9 @@
 #import "GPActivityView.h"
 #import "GPActivityViewController.h"
 
-@interface GPActivityView () {
+@interface GPActivityView () <UIScrollViewDelegate> {
     NSMutableArray *_activityViews;
+    UIPageControl *_pageControl;
 }
 
 @end
@@ -39,27 +40,40 @@
         NSUInteger cancelButtonHeight = 0;
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-            _backgroundImageView.image = [[UIImage imageNamed:@"GPActivityViewController.bundle/Background"] stretchableImageWithLeftCapWidth:20 topCapHeight:60];
-            _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            [self addSubview:_backgroundImageView];
-
+            if (UI_IS_IOS7()) {
+                self.backgroundColor = [UIColor colorWithWhite:244.f/255.f alpha:1.f];
+            } else {
+                UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width,
+                                                                                        frame.size.height)];
+                background.image = [[UIImage imageNamed:@"GPActivityViewController.bundle/Background"] stretchableImageWithLeftCapWidth:20 topCapHeight:60];
+                background.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+                [self addSubview:background];
+            }
             
             _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
             _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            [_cancelButton setBackgroundImage:[[UIImage imageNamed:@"GPActivityViewController.bundle/Button"] stretchableImageWithLeftCapWidth:22 topCapHeight:47] forState:UIControlStateNormal];
-            
+            [_cancelButton setTitle:NSLocalizedStringFromTable(@"BUTTON_CANCEL", @"GPActivityViewController", @"Cancel") forState:UIControlStateNormal];
+
+
+            if (!UI_IS_IOS7()) {
+                [_cancelButton setBackgroundImage:[[UIImage imageNamed:@"GPActivityViewController.bundle/Button"] stretchableImageWithLeftCapWidth:22 topCapHeight:47] forState:UIControlStateNormal];
+                [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [_cancelButton setTitleShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4] forState:UIControlStateNormal];
+                [_cancelButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
+                [_cancelButton.titleLabel setFont:[UIFont boldSystemFontOfSize:19]];
+            } else {
+                UIColor *titleColor = [UIColor colorWithRed:22.f/255.f green:126.f/255.f blue:251.f/255.f alpha:1.0];
+                [_cancelButton setTitleColor:titleColor forState:UIControlStateNormal];
+                [_cancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+                [_cancelButton.titleLabel setFont:[UIFont systemFontOfSize:21]];
+            }
+
             NSUInteger width = 270;
             NSUInteger height = 45;
             _cancelButton.frame = CGRectMake((CGRectGetWidth(self.frame) - width) / 2,
                                              CGRectGetHeight(self.frame) - height - 15,
                                              width, height);
-            
-            [_cancelButton setTitle:NSLocalizedStringFromTable(@"BUTTON_CANCEL", @"GPActivityViewController", @"Cancel") forState:UIControlStateNormal];
-            [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [_cancelButton setTitleShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4] forState:UIControlStateNormal];
-            [_cancelButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
-            [_cancelButton.titleLabel setFont:[UIFont boldSystemFontOfSize:19]];
+
             [_cancelButton addTarget:self action:@selector(cancelButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:_cancelButton];
             
@@ -83,17 +97,21 @@
             [_activityViews addObject:view];
         }        
         
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height - 84, frame.size.width, 10)];
+        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(frame)- 80,
+                                                                       CGRectGetWidth(frame), 10)];
         _pageControl.hidesForSinglePage = YES;
         _pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+
+        if (UI_IS_IOS7()) {
+            _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+            _pageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.9f alpha:1.f];
+        }
         
         [_pageControl addTarget:self action:@selector(pageControlValueChanged:)
                forControlEvents:UIControlEventValueChanged];
         [self addSubview:_pageControl];
-        
-        
-        
     }
+
     return self;
 }
 
@@ -111,13 +129,21 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 59, 100, 30)];
     label.textAlignment = UITextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
-    label.shadowOffset = CGSizeMake(0, 1);
+
+    if (UI_IS_IOS7()) {
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont systemFontOfSize:12];
+    } else {
+        label.textColor = [UIColor whiteColor];
+        label.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
+        label.shadowOffset = CGSizeMake(0, 1);
+        label.font = [UIFont boldSystemFontOfSize:12];
+    }
+
     label.text = activity.title;
-    label.font = [UIFont boldSystemFontOfSize:12];
+
     label.numberOfLines = 0;
-    [label setNumberOfLines:0];
+
     [label sizeToFit];
     CGRect frame = label.frame;
     frame.origin.x = roundf((view.frame.size.width - frame.size.width) / 2.0f);
