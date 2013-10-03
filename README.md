@@ -31,6 +31,11 @@ Alternative to UIActivityViewController compatible with iOS5.0
 * Custom activities
 * Activity customization
 * ActivityViewController completion handler
+
+### Further work
+* Drop-in replacement for UIActivityViewController(use same activity)
+* iOS7 look and fill
+* Universal message composer
  
 ## Installation
 The recommended way is to use [CocoaPods](http://cocoapods.org/) package manager.
