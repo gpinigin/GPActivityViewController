@@ -60,7 +60,7 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
     if (self) {
         _applicaitonId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kVKBundleAppID];
         if (_applicaitonId == nil) {
-            NSLog(@"<VKontakteAppID> not found. Make sure you properly set it in info.plist file");
+            NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kVKBundleAppID);
         }
     }
     

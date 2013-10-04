@@ -68,17 +68,17 @@ static OdnoklassnikiMgr *instance = nil;
         
         _appId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kOKBundleAppID];
         if (_appId == nil) {
-            NSLog(@"<OdnoklassnikiAppID> not found. Make sure you properly set it in info.plist file");
+            NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kOKBundleAppID);
         }
         
         _secretKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:kOKBundleSecretKey];
         if (_secretKey == nil) {
-            NSLog(@"<OdnoklassnikiSecretKey> not found. Make sure you properly set it in info.plist file");
+            NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kOKBundleSecretKey);
         }
         
         _appKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:kOKBundleAppKey];
         if (_appKey == nil) {
-            NSLog(@"<OdnoklassnikiAppKey> not found. Make sure you properly set it in info.plist file");
+            NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kOKBundleAppKey);
         }
         
         if (_appId) {
