@@ -188,14 +188,24 @@
     
     typeof(self) __weak weakSelf = self;
     [UIView animateWithDuration:duration animations:^() {
+        NSUInteger width = 0;
+        NSUInteger height = 0;
+        NSUInteger statusBarHeight = 0;
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+            width = size.height;
+            height = size.width;
             NSUInteger statusBarHeight = CGRectGetWidth([UIApplication sharedApplication].statusBarFrame);
-            [weakSelf updateGridFrame:CGSizeMake(size.height, size.width - statusBarHeight)];
         } else {
+            width = size.width;
+            height = size.height;
             NSUInteger statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
-            [weakSelf updateGridFrame:CGSizeMake(size.width, size.height - statusBarHeight)];
         }
-    }];  
+        if (UI_IS_IOS7())
+            statusBarHeight = 0;
+
+        [weakSelf updateGridFrame:CGSizeMake(width, height - statusBarHeight)];
+    }];
+
 }
 
 #pragma mark -
