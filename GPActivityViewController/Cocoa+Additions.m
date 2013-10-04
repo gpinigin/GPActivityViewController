@@ -33,9 +33,10 @@
     
 	NSMutableArray *pairs = [NSMutableArray array];
 	for (NSString *key in [params keyEnumerator]) {
-        NSString *value = [params objectForKey:key];
+        id valueForKey = [params objectForKey:key];
+        NSString *value = [valueForKey isKindOfClass:[NSString class]]? valueForKey: [valueForKey stringValue];
+
 		NSString *escapedValue = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
 		[pairs addObject:[NSString stringWithFormat:@"%@=%@", key, escapedValue]];
 	}
     
