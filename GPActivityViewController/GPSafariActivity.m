@@ -39,13 +39,17 @@ NSString *const kGPSafariActivity = @"GPSafariActivity";
 
 #pragma mark -
 
-- (void)performActivity {
-    NSURL *url = [self.userInfo objectForKey:@"url"];
-    [[UIApplication sharedApplication] openURL:url];   
++ (GPActivityCategory)activityCategory {
+    return GPActivityCategoryAction;
 }
 
 - (NSString *)activityType {
     return kGPSafariActivity;
+}
+
+- (void)performActivity {
+    NSURL *url = [self.userInfo objectForKey:@"url"];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end

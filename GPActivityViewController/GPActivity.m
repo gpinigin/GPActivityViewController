@@ -32,7 +32,6 @@
 
 @implementation GPActivity
 
-
 + (instancetype)customActivity:(NSString *)activityType actionHandler:(GPActivityActionHandler)block {
     GPActivity *activity = [GPActivity new];
     activity->_actionHandler = [block copy];
@@ -57,7 +56,11 @@
     }
 }
 
-#pragma subclassing
+#pragma mark - subclassing
+
++ (GPActivityCategory)activityCategory {
+    return GPActivityCategoryShare;
+}
 
 - (NSString *)activityType {
     return _activityType;

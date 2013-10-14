@@ -38,6 +38,14 @@ NSString *const GPActivityCopy = @"GPActivityCopy";
 
 #pragma mark - 
 
++ (GPActivityCategory)activityCategory {
+    return GPActivityCategoryAction;
+}
+
+- (NSString *)activityType {
+    return GPActivityCopy;
+}
+
 - (void)performActivity {
     NSString *text = [self.userInfo objectForKey:@"text"];
     UIImage *image = [self.userInfo objectForKey:@"image"];
@@ -58,10 +66,6 @@ NSString *const GPActivityCopy = @"GPActivityCopy";
     }
     
     [self activityDidFinish:YES];
-}
-
-- (NSString *)activityType {
-    return GPActivityCopy;
 }
 
 @end

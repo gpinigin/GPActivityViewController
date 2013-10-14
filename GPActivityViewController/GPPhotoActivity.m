@@ -24,6 +24,14 @@ NSString *const kGPActivityPhoto = @"GPPhotoActivity";
 
 #pragma mark -
 
++ (GPActivityCategory)activityCategory {
+    return GPActivityCategoryAction;
+}
+
+- (NSString *)activityType {
+    return kGPActivityPhoto;
+}
+
 - (void)performActivity {
     UIImage *image = [self.userInfo objectForKey:@"image"];
     
@@ -31,10 +39,5 @@ NSString *const kGPActivityPhoto = @"GPPhotoActivity";
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     }
 }
-
-- (NSString *)activityType {
-    return kGPActivityPhoto;
-}
-
 
 @end

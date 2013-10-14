@@ -23,11 +23,16 @@
 #import <Foundation/Foundation.h>
 #import "GPActivityViewController.h"
 
+typedef enum {
+    GPActivityCategoryAction,
+    GPActivityCategoryShare,
+} GPActivityCategory;
+
 @class GPActivity;
 
 typedef void (^GPActivityActionHandler)(GPActivity *activity, NSDictionary *userInfo);
 
-@interface GPActivity : NSObject 
+@interface GPActivity : NSObject
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UIImage *image;
@@ -41,7 +46,8 @@ typedef void (^GPActivityActionHandler)(GPActivity *activity, NSDictionary *user
 - (void)activityDidFinish:(BOOL)completed;
 
 // subclassing
-- (NSString *)activityType;
-- (void)performActivity;
++ (GPActivityCategory)activityCategory; // return share action for activity - GPActivityCategoryShare is default.
+- (NSString *)activityType; // return custom activity type that is reported to completion handler
+- (void)performActivity;    // perform activity related work
 
 @end
