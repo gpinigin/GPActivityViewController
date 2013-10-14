@@ -36,10 +36,9 @@ typedef void (^GPActivityActionHandler)(GPActivity *activity, NSDictionary *user
 @property (nonatomic, copy) ActivityViewCompletionHandler completionBlock;
 
 + (instancetype)customActivity:(NSString *)activityType actionHandler:(GPActivityActionHandler)block;
-- (void)prepareForActivityInfo:(NSDictionary *)activityInfo;
 
 // State
-- (void)activityFinished:(BOOL)completed;
+- (void)activityDidFinish:(BOOL)completed;
 
 // subclassing
 - (NSString *)activityType;

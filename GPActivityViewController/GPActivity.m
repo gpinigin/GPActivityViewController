@@ -45,7 +45,7 @@
 
 #pragma mark -
 
-- (void)activityFinished:(BOOL)completed {
+- (void)activityDidFinish:(BOOL)completed {
     if (_completionBlock) {
         _completionBlock([self activityType], completed);
     }

@@ -67,7 +67,7 @@ NSString *const GPActivityFacebook = @"GPActivityFacebook";
     typeof(composeController) __weak weakComposer = composeController;
     composeController.completionHandler = ^(DEFacebookComposeViewControllerResult result) {
         [weakComposer dismissViewControllerAnimated:YES completion:nil];
-        [weakSelf activityFinished:result == DEFacebookComposeViewControllerResultDone];
+        [weakSelf activityDidFinish:result == DEFacebookComposeViewControllerResultDone];
     };
     
     [presentingController presentViewController:composeController animated:YES completion:nil];

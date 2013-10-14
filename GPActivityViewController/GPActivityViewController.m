@@ -24,6 +24,10 @@
 #import "GPActivityView.h"
 #import "GPActivity.h"
 
+@interface GPActivity (ActivityContollerExtension)
+- (void)prepareForActivityInfo:(NSDictionary *)activityInfo;
+@end
+
 @interface GPActivityViewController () <ActivityViewActionDelegate>
 
 @property (nonatomic, strong, readonly) UIView *backgroundView;

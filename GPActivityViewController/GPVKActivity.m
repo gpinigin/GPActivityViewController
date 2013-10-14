@@ -85,7 +85,7 @@ NSString *const GPActivityVKontakte = @"GPActivityVKontakte";
                     [[VkontakteMgr sharedInstance] shareText:composeViewController.text];
                 }
                 
-                [weakSelf activityFinished:YES];
+                [weakSelf activityDidFinish:YES];
             } else {
                 [[VkontakteMgr sharedInstance] retrieveAccessToken:@[@"wall,photos"] completion:^(BOOL completed) {
                     if (completed) {
@@ -98,7 +98,7 @@ NSString *const GPActivityVKontakte = @"GPActivityVKontakte";
         
         if (result == REComposeResultCancelled) {
             [composeViewController dismissViewControllerAnimated:YES completion:nil];
-            [weakSelf activityFinished:NO];
+            [weakSelf activityDidFinish:NO];
         }
     };
     

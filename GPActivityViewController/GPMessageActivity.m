@@ -73,7 +73,7 @@ NSString *const GPActivityMessage = @"GPActivityMessage";
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     [controller dismissViewControllerAnimated:YES completion:nil];
-    [self activityFinished:(result == MessageComposeResultSent)];
+    [self activityDidFinish:(result == MessageComposeResultSent)];
 }
 
 @end

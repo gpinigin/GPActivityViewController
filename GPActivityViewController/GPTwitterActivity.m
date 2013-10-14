@@ -50,7 +50,7 @@ NSString *const GPActivityTwitter = @"GPActivityTwitter";
         typeof(composeController) __weak weakComposer = composeController;
         ((SLComposeViewController *)composeController).completionHandler = ^(SLComposeViewControllerResult result) {
             [weakComposer dismissViewControllerAnimated:YES completion:nil];
-            [weakSelf activityFinished:(result == SLComposeViewControllerResultDone)];
+            [weakSelf activityDidFinish:(result == SLComposeViewControllerResultDone)];
         };
     } else {
         composeController = [[TWTweetComposeViewController alloc] init];
@@ -58,7 +58,7 @@ NSString *const GPActivityTwitter = @"GPActivityTwitter";
         typeof(composeController) __weak weakComposer = composeController;
         ((TWTweetComposeViewController *)composeController).completionHandler = ^(TWTweetComposeViewControllerResult result) {
             [weakComposer dismissViewControllerAnimated:YES completion:nil];
-            [weakSelf activityFinished:(result == TWTweetComposeViewControllerResultDone)];
+            [weakSelf activityDidFinish:(result == TWTweetComposeViewControllerResultDone)];
         };
     }
     

@@ -83,7 +83,7 @@ NSString *const GPActivityMail = @"GPActivityMail";
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [controller dismissViewControllerAnimated:YES completion:nil];
-    [self activityFinished:(result == MFMailComposeResultSent)];
+    [self activityDidFinish:(result == MFMailComposeResultSent)];
 }
 
 

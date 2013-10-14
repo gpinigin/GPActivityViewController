@@ -57,7 +57,7 @@ NSString *const GPActivityCopy = @"GPActivityCopy";
                                 forPasteboardType:[UIPasteboardTypeListImage objectAtIndex:0]];
     }
     
-    [self activityFinished:YES];
+    [self activityDidFinish:YES];
 }
 
 - (NSString *)activityType {
