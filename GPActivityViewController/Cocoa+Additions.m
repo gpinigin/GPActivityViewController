@@ -34,13 +34,20 @@
 	NSMutableArray *pairs = [NSMutableArray array];
 	for (NSString *key in [params keyEnumerator]) {
         id valueForKey = [params objectForKey:key];
-        NSString *value = [valueForKey isKindOfClass:[NSString class]]? valueForKey: [valueForKey stringValue];
+        NSString *value = nil;
+        if ([valueForKey isKindOfClass:[NSNumber class]]) {
+            value = [valueForKey stringValue];
+        } else if ([valueForKey isKindOfClass:[NSArray class]]) {
+            value = [valueForKey componentsJoinedByString:@","];
+        } else {
+            value = valueForKey;
+        }
 
 		NSString *escapedValue = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		[pairs addObject:[NSString stringWithFormat:@"%@=%@", key, escapedValue]];
 	}
     
-	NSString* query = [pairs componentsJoinedByString:@"&"];
+	NSString *query = [pairs componentsJoinedByString:@"&"];
     
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", self, queryPrefix, query]];
 }
