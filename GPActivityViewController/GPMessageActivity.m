@@ -59,7 +59,7 @@ NSString *const GPActivityMessage = @"GPActivityMessage";
     }
     
     if (url) {
-        message = [message stringByAppendingString:url.absoluteString];
+        message = [message stringByAppendingFormat:@" %@", url.absoluteString];
     }
   
     messageComposeViewController.body = message;

@@ -57,7 +57,7 @@ NSString *const GPActivityMail = @"GPActivityMail";
     }
     
     if (url) {
-        message = [message stringByAppendingString:url.absoluteString];
+        message = [message stringByAppendingFormat:@" %@", url.absoluteString];
     }
     
     [mailComposeViewController setMessageBody:message isHTML:YES];

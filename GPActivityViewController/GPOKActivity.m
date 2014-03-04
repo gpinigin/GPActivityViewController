@@ -46,14 +46,13 @@ NSString *const GPActivityOdnoklassniki = @"GPActivityOdnoklassniki";
     UIImage *image = [self.userInfo objectForKey:@"image"];
     
     NSString *textToShare;
-    if (text && !url)
-        textToShare = text;
-    
-    if (!text && url)
-        textToShare = url.absoluteString;
-    
-    if (text && url)
+    if (text && url) {
         textToShare = [NSString stringWithFormat:@"%@ %@", text, url.absoluteString];
+    } else if (text) {
+        textToShare = text;
+    } else if (url) {
+        textToShare = url.absoluteString;
+    }
     
     REComposeViewController *controller = [[REComposeViewController alloc] init];
     if (![OdnoklassnikiMgr sharedInstance].accessToken) {
