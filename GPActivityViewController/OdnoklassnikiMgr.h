@@ -25,7 +25,7 @@
 @interface OdnoklassnikiMgr : NSObject
 
 @property (nonatomic, assign) BOOL debugEnabled;
-@property (nonatomic, readonly) NSString *appId;
+@property (nonatomic, readonly) NSString *applicationId;
 @property (nonatomic, readonly) NSString *secretKey;
 @property (nonatomic, readonly) NSString *appKey;
 @property (nonatomic, readonly) NSString *accessToken;

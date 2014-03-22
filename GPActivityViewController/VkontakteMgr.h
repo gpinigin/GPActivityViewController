@@ -24,7 +24,7 @@
 
 @interface VkontakteMgr : NSObject
 
-@property (nonatomic, readonly) NSString *applicaitonId;
+@property (nonatomic, readonly) NSString *applicationId;
 @property (nonatomic, readonly) NSString *accessToken;
 @property (nonatomic, readonly) NSString *userId;
 

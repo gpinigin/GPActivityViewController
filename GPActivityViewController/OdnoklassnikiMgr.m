@@ -59,8 +59,8 @@ NSString *const kOKTokenKey = @"kOKTokenKey:info";
 - (id)init {
     self = [super init];
     if (self) {
-        _appId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kOKBundleAppID];
-        if (_appId == nil) {
+        _applicationId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kOKBundleAppID];
+        if (_applicationId == nil) {
             NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kOKBundleAppID);
         }
         
@@ -74,10 +74,10 @@ NSString *const kOKTokenKey = @"kOKTokenKey:info";
             NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kOKBundleAppKey);
         }
         
-        if (_appId) {
-            NSString *redirectScheme = [NSString stringWithFormat:@"ok%@://authorize", _appId];
+        if (_applicationId) {
+            NSString *redirectScheme = [NSString stringWithFormat:@"ok%@://authorize", _applicationId];
             if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:redirectScheme]]) {
-                NSLog(@"Your app cannot handle callback scheme. Make sure you properly set supported url scheme in info.plist. Should be ok%@", _appId);
+                NSLog(@"Your app cannot handle callback scheme. Make sure you properly set supported url scheme in info.plist. Should be ok%@", _applicationId);
             }
         }
     }
@@ -124,10 +124,10 @@ NSString *const kOKTokenKey = @"kOKTokenKey:info";
     _permissions = permissions;      
     self.completionBlock = block;
     
-    NSString *redirectURI = [NSString stringWithFormat:@"ok%@://authorize", _appId];
+    NSString *redirectURI = [NSString stringWithFormat:@"ok%@://authorize", _applicationId];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:_appId forKey:@"client_id"];
+    [params setObject:_applicationId forKey:@"client_id"];
     [params setObject:redirectURI forKey:@"redirect_uri"];
     [params setObject:@"code" forKey:@"response_type"];
     if (!hasApp) {
@@ -191,7 +191,7 @@ NSString *const kOKTokenKey = @"kOKTokenKey:info";
 #pragma mark - handle url
 
 - (BOOL)handleOpenURL:(NSURL *)url {
-    if (![url.scheme isEqualToString:[NSString stringWithFormat:@"ok%@", _appId]]) {
+    if (![url.scheme isEqualToString:[NSString stringWithFormat:@"ok%@", _applicationId]]) {
         return NO;
     }
     
@@ -221,7 +221,7 @@ NSString *const kOKTokenKey = @"kOKTokenKey:info";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	[params setValue:[self refreshToken] forKey:@"refresh_token"];
 	[params setValue:@"refresh_token" forKey:@"grant_type"];
-	[params setValue:_appId forKey:@"client_id"];
+	[params setValue:_applicationId forKey:@"client_id"];
 	[params setValue:_secretKey forKey:@"client_secret"];
     
     NSURL *baseURL = [NSURL URLWithString:kOKAccessTokenURL];
@@ -255,10 +255,10 @@ NSString *const kOKTokenKey = @"kOKTokenKey:info";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:code forKey:@"code"];
     
-    NSString *redirectURI = [NSString stringWithFormat:@"ok%@://authorize", _appId];
+    NSString *redirectURI = [NSString stringWithFormat:@"ok%@://authorize", _applicationId];
     [params setObject:redirectURI forKey:@"redirect_uri"];
     [params setObject:@"authorization_code" forKey:@"grant_type"];    
-    [params setObject:_appId forKey:@"client_id"];
+    [params setObject:_applicationId forKey:@"client_id"];
     [params setObject:_secretKey forKey:@"client_secret"];
     
     NSURL *baseURL = [NSURL URLWithString:kOKAccessTokenURL];

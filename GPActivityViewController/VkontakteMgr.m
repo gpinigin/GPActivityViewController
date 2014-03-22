@@ -21,7 +21,6 @@
 //
 
 #import "VkontakteMgr.h"
-#import "GPVKAuthController.h"
 #import "Cocoa+Additions.h"
 #import <AFNetworking.h>
 
@@ -29,7 +28,6 @@ NSString *const kVKBundleAppID = @"VKontakteAppID";
 NSString *const kVKTokenKeyInfo = @"kVKTokenKey:info";
 
 NSString *const kVKLoginURL = @"https://oauth.vk.com/authorize";
-NSString *const kVKRedirectURL = @"https://oauth.vk.com/blank.html";
 NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
 
 @interface VkontakteMgr () {
@@ -54,53 +52,57 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
 - (id)init {
     self = [super init];
     if (self) {
-        _applicaitonId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kVKBundleAppID];
-        if (_applicaitonId == nil) {
+        _applicationId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kVKBundleAppID];
+        if (_applicationId == nil) {
             NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kVKBundleAppID);
         }
+
+        if (_applicationId) {
+            NSString *redirectScheme = [NSString stringWithFormat:@"vk%@://", _applicationId];
+            if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:redirectScheme]]) {
+                NSLog(@"Your app cannot handle callback scheme. Make sure you properly set supported url scheme in info.plist. Should be vk%@:", _applicationId);
+            }
+        }
     }
-    
+
     return self;
+}
+
+#pragma mark - official application
+
+- (NSURL *)applicationURL {
+    return [NSURL URLWithString:@"vkauth://authorize"];
 }
 
 #pragma mark -
 
 - (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(BOOL))completion {
+    BOOL hasApp = [[UIApplication sharedApplication] canOpenURL:[self applicationURL]];
     _permissions = permissions;
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:_applicaitonId forKey:@"client_id"];
+    [params setObject:_applicationId forKey:@"client_id"];
     if (permissions) {
-        [params setObject:[permissions componentsJoinedByString:@","] forKey:@"scope"];
+        [params setObject:permissions forKey:@"scope"];
     }
-    [params setObject:kVKRedirectURL forKey:@"redirect_uri"];
-    [params setObject:@"touch" forKey:@"display"];
-    [params setObject:@"token" forKey:@"response_type"];
-    
-    NSURL *tokenRequestURL = [[NSURL URLWithString:kVKLoginURL] serializeURLWithParams:params];
-    
-    UIViewController *presentingController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    GPVKAuthController *vkController = [[GPVKAuthController alloc] init];
-    vkController.completionHandler = ^(BOOL completed) {
-        [presentingController dismissViewControllerAnimated:YES completion:nil];
-        if (completion) {
-            completion(completed);
-        }
-    };
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vkController];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-    }
- 
-    [presentingController presentViewController:navigationController animated:YES completion:nil];
 
-    [vkController loadRequest:[NSURLRequest requestWithURL:tokenRequestURL]];
+    if (!hasApp) {
+        NSString *redirectURI = [NSString stringWithFormat:@"vk%@://authorize", _applicationId];
+        [params setObject:redirectURI forKey:@"redirect_uri"];
+        [params setObject:@"mobile" forKey:@"display"];
+        [params setObject:@"token" forKey:@"response_type"];
+    }
+
+    NSURL *baseURL = hasApp? [self applicationURL]: [NSURL URLWithString:kVKLoginURL];
+    NSURL *tokenRequestURL = [baseURL serializeURLWithParams:params];
+
+    [[UIApplication sharedApplication] openURL:tokenRequestURL];
 }
 
 #pragma mark - handle url
 
 - (BOOL)handleOpenURL:(NSURL *)url {
-    if (![url.absoluteString hasPrefix:kVKRedirectURL]) {
+    if (![url.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", _applicationId]]) {
         return NO;
     }
 
@@ -108,19 +110,19 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
     if (diesRange.location == NSNotFound) {
         return NO;
     }
-    
+
     NSCharacterSet *delims = [NSCharacterSet characterSetWithCharactersInString:@"=&"];
     NSString *query = [url.absoluteString substringFromIndex:diesRange.location + 1];
     NSArray *parts = [query componentsSeparatedByCharactersInSet:delims];
     if (parts.count % 2 == 1) {
         return NO;
     }
-    
+
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:parts.count / 2];
     for (NSUInteger index = 0; index < parts.count; index += 2) {
         [params setObject:[parts objectAtIndex:index + 1] forKey:[parts objectAtIndex:index]];
     }
-    
+
     if ([params objectForKey:@"error"]) {
         // TODO handle error
     } else {
@@ -128,9 +130,9 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
         NSString *userId = [params objectForKey:@"user_id"];
         NSTimeInterval expiresIn = [[params objectForKey:@"expires_in"] integerValue];
         [self setAccessToken:token];
-        [self setUserId:userId];       
+        [self setUserId:userId];
     }
-    
+
     return YES;
 }
 
