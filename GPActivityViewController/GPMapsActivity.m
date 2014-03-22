@@ -30,7 +30,11 @@ NSString *const kGPActivityMaps = @"GPMapsActivity";
     self = [super init];
     if (self) {
         self.title = NSLocalizedStringFromTable(@"ACTIVITY_MAPS", @"GPActivityViewController", @"Open in Maps");
-        self.image = [UIImage imageNamed:@"GPActivityViewController.bundle/shareMaps"];
+        NSString *imageName = @"GPActivityViewController.bundle/shareMaps";
+        if (UI_IS_IOS7()) {
+            imageName = [imageName stringByAppendingString:@"7"];
+        }
+        self.image = [UIImage imageNamed:imageName];
     }
     
     return self;

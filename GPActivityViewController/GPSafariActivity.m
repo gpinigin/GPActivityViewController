@@ -31,7 +31,11 @@ NSString *const kGPSafariActivity = @"GPSafariActivity";
     self = [super init];
     if (self) {
         self.title = NSLocalizedStringFromTable(@"ACTIVITY_SAFARI", @"GPActivityViewController", @"Open in Safari");
-        self.image = [UIImage imageNamed:@"GPActivityViewController.bundle/shareSafari"];
+        NSString *imageName = @"GPActivityViewController.bundle/shareSafari";
+        if (UI_IS_IOS7()) {
+            imageName = [imageName stringByAppendingString:@"7"];
+        }
+        self.image = [UIImage imageNamed:imageName];
     }
     
     return self;

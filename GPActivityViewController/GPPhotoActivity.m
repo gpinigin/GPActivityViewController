@@ -30,7 +30,11 @@ NSString *const kGPActivityPhoto = @"GPPhotoActivity";
     self = [super init];
     if (self) {
         self.title = NSLocalizedStringFromTable(@"ACTIVITY_PHOTO", @"GPActivityViewController", @"Save to Camera Roll");
-        self.image = [UIImage imageNamed:@"GPActivityViewController.bundle/sharePhotos"];
+        NSString *imageName = @"GPActivityViewController.bundle/sharePhotos";
+        if (UI_IS_IOS7()) {
+            imageName = [imageName stringByAppendingString:@"7"];
+        }
+        self.image = [UIImage imageNamed:imageName];
     }
     
     return self;

@@ -37,8 +37,11 @@
     activity->_actionHandler = [block copy];
     activity->_activityType = activityType;
     activity.title = NSLocalizedStringFromTable(@"ACTIVITY_CUSTOM", @"GPActivityViewController", @"Custom");
-    activity.image = [UIImage imageNamed:@"GPActivityViewController.bundle/shareCustom"];
-    
+    NSString *imageName = @"GPActivityViewController.bundle/shareCustom";
+    if (UI_IS_IOS7()) {
+        imageName = [imageName stringByAppendingString:@"7"];
+    }
+    activity->_image = [UIImage imageNamed:imageName];
     return activity;
 }
 

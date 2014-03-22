@@ -223,7 +223,6 @@
 
 #pragma mark - UIScrollViewDelegate
 
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _pageControl.currentPage = scrollView.contentOffset.x / scrollView.frame.size.width;
 }
