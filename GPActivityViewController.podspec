@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = 'GPActivityViewController'
-  s.version     = '1.2.3'
+  s.version     = '1.3.0'
   s.authors     = { 'Gleb Pinigin' => 'gpinigin@gmail.com' }
   s.homepage    = 'https://github.com/gpinigin/GPActivityViewController'
   s.summary     = 'Alternative to UIActivityViewController compatible with iOS5.0.'
@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.source_files = 'GPActivityViewController'
   s.public_header_files = 'GPActivityViewController/*.h'
   s.resources = "GPActivityViewController/Resources/GPActivityViewController.bundle", "GPActivityViewController/Resources/*.lproj"
+  s.preserve_path = "LICENSE.md"
 
   s.ios.deployment_target = '5.0'
   s.ios.frameworks = 'QuartzCore', 'MessageUI', 'Twitter'
