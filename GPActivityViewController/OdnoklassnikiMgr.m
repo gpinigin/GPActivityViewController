@@ -33,8 +33,6 @@ NSString *const kOKAPIEntryPointURL = @"http://api.odnoklassniki.ru/fb.do";
 
 NSString *const kOKTokenKey = @"kOKTokenKey:info";
 
-static OdnoklassnikiMgr *instance = nil;
-
 @interface OdnoklassnikiMgr () {
     NSArray *_permissions;
     
@@ -49,15 +47,13 @@ static OdnoklassnikiMgr *instance = nil;
 @implementation OdnoklassnikiMgr
 
 + (id)sharedInstance {
-    if (instance == nil) {
-        @synchronized([OdnoklassnikiMgr class]) {
-            if (instance == nil) {
-                instance = [OdnoklassnikiMgr new];
-            }
-        }
-    }
+    static dispatch_once_t onceToken;
+    static OdnoklassnikiMgr *_instance = nil;
+    dispatch_once(&onceToken, ^{
+        _instance = [OdnoklassnikiMgr new];
+    });
     
-    return instance;
+    return _instance;
 }
 
 - (id)init {

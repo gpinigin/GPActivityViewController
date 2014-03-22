@@ -25,9 +25,7 @@
 #import "Cocoa+Additions.h"
 #import <AFNetworking.h>
 
-static VkontakteMgr *instance = nil;
 NSString *const kVKBundleAppID = @"VKontakteAppID";
-
 NSString *const kVKTokenKeyInfo = @"kVKTokenKey:info";
 
 NSString *const kVKLoginURL = @"https://oauth.vk.com/authorize";
@@ -44,15 +42,13 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
 @implementation VkontakteMgr
 
 + (instancetype)sharedInstance {
-    if (instance == nil) {
-        @synchronized([VkontakteMgr class]) {
-            if (instance == nil) {
-                instance = [VkontakteMgr new];
-            }
-        }
-    }
+    static dispatch_once_t onceToken;
+    static VkontakteMgr *_instance = nil;
+    dispatch_once(&onceToken, ^{
+        _instance = [VkontakteMgr new];
+    });
     
-    return instance;
+    return _instance;
 }
 
 - (id)init {
@@ -69,7 +65,7 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
 
 #pragma mark -
 
-- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(BOOL))block {
+- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(BOOL))completion {
     _permissions = permissions;
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -87,8 +83,8 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
     GPVKAuthController *vkController = [[GPVKAuthController alloc] init];
     vkController.completionHandler = ^(BOOL completed) {
         [presentingController dismissViewControllerAnimated:YES completion:nil];
-        if (block) {
-            block(completed);
+        if (completion) {
+            completion(completed);
         }
     };
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vkController];
