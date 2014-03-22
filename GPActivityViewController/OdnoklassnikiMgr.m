@@ -36,7 +36,6 @@ NSString *const kOKTokenKey = @"kOKTokenKey:info";
 static OdnoklassnikiMgr *instance = nil;
 
 @interface OdnoklassnikiMgr () {
-    BOOL _hasApp;
     NSArray *_permissions;
     
     NSString *_accessToken;
@@ -64,8 +63,6 @@ static OdnoklassnikiMgr *instance = nil;
 - (id)init {
     self = [super init];
     if (self) {
-        _hasApp = [[UIApplication sharedApplication] canOpenURL:[self odnoklassnikiAppURL]];
-        
         _appId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kOKBundleAppID];
         if (_appId == nil) {
             NSLog(@"<%@> not found. Make sure you properly set it in info.plist file", kOKBundleAppID);
@@ -124,7 +121,9 @@ static OdnoklassnikiMgr *instance = nil;
 }
 
 
-- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(void))block;{
+- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(void))block {
+    BOOL hasApp = [[UIApplication sharedApplication] canOpenURL:[self odnoklassnikiAppURL]];
+
     // TODO compare permissions to issue new token
     _permissions = permissions;      
     self.completionBlock = block;
@@ -135,7 +134,7 @@ static OdnoklassnikiMgr *instance = nil;
     [params setObject:_appId forKey:@"client_id"];
     [params setObject:redirectURI forKey:@"redirect_uri"];
     [params setObject:@"code" forKey:@"response_type"];
-    if (!_hasApp) {
+    if (!hasApp) {
         [params setObject:@"m" forKey:@"layout"];
     }
     
@@ -143,7 +142,7 @@ static OdnoklassnikiMgr *instance = nil;
         [params setObject:[_permissions componentsJoinedByString:@";"] forKey:@"scope"];
     }
     
-    NSURL *baseUrl = _hasApp? [self odnoklassnikiAppURL]: [NSURL URLWithString:kOKLoginURL];
+    NSURL *baseUrl = hasApp? [self odnoklassnikiAppURL]: [NSURL URLWithString:kOKLoginURL];
     NSURL *oauthURL =  [baseUrl serializeURLWithParams:params];
     
     [[UIApplication sharedApplication] openURL:oauthURL];
