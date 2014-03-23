@@ -29,7 +29,7 @@
 @property (nonatomic, readonly) NSString *userId;
 
 + (instancetype)sharedInstance;
-- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(BOOL))block;
+- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(BOOL))completion;
 - (BOOL)handleOpenURL:(NSURL *)url;
 
 - (void)shareText:(NSString *)text image:(UIImage *)image;

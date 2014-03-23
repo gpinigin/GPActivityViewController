@@ -35,6 +35,9 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
     NSString *_accessToken;
     NSString *_userId;
 }
+
+@property (nonatomic, copy) void (^authCompletion)(BOOL);
+
 @end 
 
 @implementation VkontakteMgr
@@ -77,6 +80,7 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
 #pragma mark -
 
 - (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(BOOL))completion {
+    self.authCompletion = completion;
     BOOL hasApp = [[UIApplication sharedApplication] canOpenURL:[self applicationURL]];
     _permissions = permissions;
     
@@ -131,6 +135,9 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
         NSTimeInterval expiresIn = [[params objectForKey:@"expires_in"] integerValue];
         [self setAccessToken:token];
         [self setUserId:userId];
+
+        if (_authCompletion)
+            _authCompletion(YES);
     }
 
     return YES;
