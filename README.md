@@ -3,7 +3,8 @@ GPActivityViewController
 
 Alternative to UIActivityViewController compatible with iOS5.0
 
-![Screenshot](https://github.com/gpinigin/GPActivityViewController/raw/master/Activities.png)
+![iOS7 and later](images/Activities-iOS7.png)
+![iOS6 and prior](images/Activities.png)
 
 
 ###Supported activities
