@@ -198,12 +198,13 @@
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             width = size.height;
             height = size.width;
-            NSUInteger statusBarHeight = CGRectGetWidth([UIApplication sharedApplication].statusBarFrame);
+            statusBarHeight = CGRectGetWidth([UIApplication sharedApplication].statusBarFrame);
         } else {
             width = size.width;
             height = size.height;
-            NSUInteger statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+            statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
         }
+
         if (UI_IS_IOS7())
             statusBarHeight = 0;
 
