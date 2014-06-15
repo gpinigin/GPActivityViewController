@@ -62,6 +62,11 @@ NSString *const GPActivityVKontakte = @"GPActivityVKontakte";
     REComposeViewController *controller = [[REComposeViewController alloc] init];
     controller.title = NSLocalizedStringFromTable(@"ACTIVITY_VKONTAKTE", @"GPActivityViewController", @"VKontakte");
     controller.navigationBar.tintColor = [UIColor colorWithRed:56/255.0f green:99/255.0f blue:150/255.0f alpha:1.0];
+
+    NSString *actionTitle = ([VkontakteMgr sharedInstance].accessToken == nil)? @"BUTTON_LOGIN": @"BUTTON_POST";
+    controller.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(actionTitle, @"GPActivityViewController", nil);
+    controller.navigationItem.leftBarButtonItem.title = NSLocalizedStringFromTable(@"BUTTON_CANCEL", @"GPActivityViewController", nil);
+
     if (textToShare) {
         controller.text = textToShare;
     }
@@ -69,11 +74,6 @@ NSString *const GPActivityVKontakte = @"GPActivityVKontakte";
     if (image) {
         controller.hasAttachment = YES;
         controller.attachmentImage = image;
-    }
-    
-    if ([VkontakteMgr sharedInstance].accessToken == nil) {
-        NSString *title = NSLocalizedStringFromTable(@"BUTTON_LOGIN", @"GPActivityViewController", @"Login");
-        controller.navigationItem.rightBarButtonItem.title = title;
     }
     
     typeof(self) __weak weakSelf = self;

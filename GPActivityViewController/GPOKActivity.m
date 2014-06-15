@@ -59,14 +59,13 @@ NSString *const GPActivityOdnoklassniki = @"GPActivityOdnoklassniki";
     }
     
     REComposeViewController *controller = [[REComposeViewController alloc] init];
-    if (![OdnoklassnikiMgr sharedInstance].accessToken) {
-        NSString *title = NSLocalizedStringFromTable(@"BUTTON_LOGIN", @"GPActivityViewController", @"Login");
-        controller.navigationItem.rightBarButtonItem.title = title;
-    }
-    
     controller.title = NSLocalizedStringFromTable(@"ACTIVITY_ODNOKLASSNIKI", @"GPActivityViewController", @"Odnoklassniki");
     controller.navigationBar.tintColor = [UIColor colorWithRed:245/255.0f green:130/255.0f blue:35/255.0f alpha:1.0];
     
+    NSString *actionTitle = ([OdnoklassnikiMgr sharedInstance].accessToken == nil)? @"BUTTON_LOGIN": @"BUTTON_POST";
+    controller.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(actionTitle, @"GPActivityViewController", nil);
+    controller.navigationItem.leftBarButtonItem.title = NSLocalizedStringFromTable(@"BUTTON_CANCEL", @"GPActivityViewController", nil);
+
     if (textToShare)
         controller.text = textToShare;
     if (image) {
