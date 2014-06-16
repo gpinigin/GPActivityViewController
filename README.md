@@ -97,6 +97,30 @@ pod 'GPActivityViewController', :git => 'https://github.com/gpinigin/GPActivityV
     }
 ```
 
+### Application callbacks
+
+To complete authentication you should register url-schemes and add application callbacks in application delegate:
+
+``` objective-c
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    // For iOS 5.X only
+    if ([FBSession.activeSession handleOpenURL:url]) {
+        return YES;
+    }
+
+    if ([[OdnoklassnikiMgr sharedInstance] handleOpenURL:url]) {
+        return YES;
+    }
+
+    if ([[VkontakteMgr sharedInstance] handleOpenURL:url]) {
+        return YES;
+    }
+
+    return NO;
+}
+```
+
 ### Subclassing notes
 ``` objective-c
 // Call it when activity is finished
