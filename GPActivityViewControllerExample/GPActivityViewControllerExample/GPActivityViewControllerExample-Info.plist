@@ -41,5 +41,19 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>peerstv</string>
+				<string>ok_your_appid</string>
+				<string>fb_your_appid</string>
+				<string>vk_your_appid</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
