@@ -10,12 +10,6 @@
 #import "GPActivities.h"
 #import "GPActivityViewController.h"
 
-@interface ViewController ()
-
-@property (nonatomic, strong) UIPopoverController *myPopoverController;
-
-@end
-
 @implementation ViewController
 
 - (IBAction)shareAction:(id)sender {
@@ -30,8 +24,15 @@
     GPSafariActivity *safariActivity = [GPSafariActivity new];
     GPMapsActivity *mapsActivity = [GPMapsActivity new];
     GPPhotoActivity *photoActivity = [GPPhotoActivity new];
-    
-    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithactivities:@[mailActivity, messageActivity, safariActivity, mapsActivity, facebookActivity, twitterActivity, vkActivity, okActivity, photoActivity, copyActivity]];
+
+    NSArray *activities = @[mailActivity, messageActivity, safariActivity, mapsActivity, facebookActivity, twitterActivity, vkActivity, okActivity, photoActivity, copyActivity];
+    GPActivityViewController *controller = [[GPActivityViewController alloc] initWithActivities:activities completion:^(NSString *activityType, BOOL completed) {
+        if (completed) {
+            if (activityType) {
+                NSLog(@"Activity done: %@", activityType);
+            }
+        }
+    }];
 
     UIImage *image = [UIImage imageNamed:@"Activities"];
     controller.userInfo = @{@"text":@"Message to pass to activities",
@@ -43,18 +44,10 @@
     
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        // iPad specific
-        if (self.myPopoverController.isPopoverVisible) {
-            [self.myPopoverController dismissPopoverAnimated:YES];
-        } else {        
-            self.myPopoverController= [[UIPopoverController alloc] initWithContentViewController:controller];
-            controller.presentingPopoverController = self.myPopoverController;
-            [self.myPopoverController presentPopoverFromBarButtonItem:self.myNavigationBarButton
-                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
+        [controller presentFromBarButton:sender animated:YES];
     } else {
-        // iPhone specific
-        [controller presentFromWindow];
+        UIButton *button = (UIButton *)sender;
+        [controller presentFromRect:button.frame inView:button.superview animated:YES];
     }
 }
 
