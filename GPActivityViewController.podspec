@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = 'GPActivityViewController'
-  s.version     = '1.3.2'
+  s.version     = '2.0.0'
   s.authors     = { 'Gleb Pinigin' => 'gpinigin@gmail.com' }
   s.homepage    = 'https://github.com/gpinigin/GPActivityViewController'
   s.summary     = 'Alternative to UIActivityViewController compatible with iOS5.0.'
