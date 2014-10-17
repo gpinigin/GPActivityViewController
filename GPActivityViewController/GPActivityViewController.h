@@ -28,13 +28,17 @@ typedef void (^ActivityViewCompletionHandler)(NSString *activityType, BOOL compl
 
 @property (nonatomic, strong, readonly) NSArray *activities;
 @property (nonatomic, strong) NSDictionary *userInfo;
-@property (nonatomic, weak) UIPopoverController *presentingPopoverController;
-@property (nonatomic, copy) ActivityViewCompletionHandler completionHandler;
+@property (nonatomic, readonly) UIPopoverController *presentingPopoverController;
+@property (nonatomic, readonly, getter=isVisible) BOOL visible;
 
+- (id)initWithActivities:(NSArray *)activities;
+- (id)initWithActivities:(NSArray *)activities completion:(ActivityViewCompletionHandler)completionHandler;
 
-- (id)initWithactivities:(NSArray *)activities;
+- (void)presentFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated;
+- (void)presentFromBarButton:(UIBarButtonItem *)buttonItem animated:(BOOL)animated;
+
+- (void)dismissAnimated:(BOOL)animated;
+
 - (void)presentModalViewControllerAnimated:(UIViewController *)controller;
-- (void)presentFromWindow;
-
 
 @end

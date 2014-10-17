@@ -28,7 +28,9 @@
 - (void)prepareForActivityInfo:(NSDictionary *)activityInfo;
 @end
 
-@interface GPActivityViewController () <ActivityViewActionDelegate>
+@interface GPActivityViewController () <ActivityViewActionDelegate, UIPopoverControllerDelegate> {
+    ActivityViewCompletionHandler _completionHandler;
+}
 
 @property (nonatomic, strong, readonly) UIView *backgroundView;
 @property (nonatomic, strong) GPActivityView *activityView;
@@ -36,6 +38,51 @@
 @end
 
 @implementation GPActivityViewController
+
+- (id)initWithActivities:(NSArray *)activities {
+    self = [self initWithActivities:activities completion:nil];
+    return self;
+}
+
+- (id)initWithActivities:(NSArray *)activities completion:(ActivityViewCompletionHandler)completionHandler {
+    self = [super init];
+    if (self) {
+        _completionHandler = completionHandler;
+
+        NSUInteger positionY = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            _backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+            _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            _backgroundView.backgroundColor = [UIColor blackColor];
+            _backgroundView.alpha = 0;
+            [self.view addSubview:_backgroundView];
+
+            positionY = self.view.frame.size.height;
+        } else {
+            self.view.frame = CGRectMake(0, 0, 320, 480);
+        }
+
+        _activities = activities;
+
+        CGRect frame = self.view.frame;
+        _activityView = [[GPActivityView alloc] initWithFrame:CGRectMake(0, positionY, CGRectGetWidth(frame),
+                                                                         CGRectGetHeight(frame))
+                                                   activities:activities];
+        _activityView.delegate = self;
+
+
+        CGSize size = [_activityView sizeThatFits:_activityView.frame.size];
+        frame = _activityView.frame;
+        frame.size = size;
+        _activityView.frame = frame;
+
+        [self.view addSubview:_activityView];
+        self.contentSizeForViewInPopover = CGSizeMake(320, size.height);
+    }
+    return self;
+}
+
+#pragma mark -
 
 - (void)loadView {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -47,58 +94,25 @@
     }
 }
 
-- (id)initWithactivities:(NSArray *)activities {
-    self = [super init];
-    if (self) {
-        NSUInteger positionY = 0;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            _backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-            _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            _backgroundView.backgroundColor = [UIColor blackColor];
-            _backgroundView.alpha = 0;
-            [self.view addSubview:_backgroundView];
-            
-            positionY = self.view.frame.size.height;
-        } else {
-            self.view.frame = CGRectMake(0, 0, 320, 480);
-        }
-       
-        _activities = activities;
-        
-        CGRect frame = self.view.frame;
-        _activityView = [[GPActivityView alloc] initWithFrame:CGRectMake(0, positionY, CGRectGetWidth(frame),
-                                                                         CGRectGetHeight(frame))
-                                                   activities:activities];
-        _activityView.delegate = self;
+#pragma mark -
 
-        
-        CGSize size = [_activityView sizeThatFits:_activityView.frame.size];
-        frame = _activityView.frame;
-        frame.size = size;
-        _activityView.frame = frame;        
-        
-        [self.view addSubview:_activityView];
-        self.contentSizeForViewInPopover = CGSizeMake(320, size.height);
-    }
-    return self;
-}
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion {
 
-- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    
+    NSTimeInterval duration = animated? 0.4: 0.0;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if (!self.window) {
-            [super dismissViewControllerAnimated:flag completion:completion];
+            [super dismissViewControllerAnimated:animated completion:completion];
         }
-        
+
         typeof(self) __weak weakSelf = self;
-        [UIView animateWithDuration:0.4 animations:^{
+        [UIView animateWithDuration:duration animations:^{
             _backgroundView.alpha = 0;
             CGRect frame = _activityView.frame;
             frame.origin.y = [UIScreen mainScreen].bounds.size.height;
             _activityView.frame = frame;
         } completion:^(BOOL finished) {
             if (weakSelf.window) {
-                [[[UIApplication sharedApplication].windows objectAtIndex:0] makeKeyAndVisible];
+                weakSelf.window.hidden = YES;
                 weakSelf.window = nil;
             }
 
@@ -106,14 +120,13 @@
                 completion();
         }];
     } else {
-        [self.presentingPopoverController dismissPopoverAnimated:YES];
+        [self.presentingPopoverController dismissPopoverAnimated:animated];
         [self performBlock:^{
             if (completion)
                 completion();
-        } afterDelay:0.4];
+        } afterDelay:duration];
     }
 }
-
 
 - (void)presentModalViewControllerAnimated:(UIViewController *)controller {
     [controller presentViewController:self animated:YES completion:nil];
@@ -154,6 +167,39 @@
     }
 }
 
+- (void)presentFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        _presentingPopoverController = [[UIPopoverController alloc] initWithContentViewController:self];
+        _presentingPopoverController.delegate = self;
+        [_presentingPopoverController presentPopoverFromRect:rect inView:view permittedArrowDirections:UIPopoverArrowDirectionAny animated:animated];
+    } else {
+        [self presentFromWindow];
+    }
+}
+
+- (void)presentFromBarButton:(UIBarButtonItem *)buttonItem animated:(BOOL)animated {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        _presentingPopoverController = [[UIPopoverController alloc] initWithContentViewController:self];
+        _presentingPopoverController.delegate = self;
+        [_presentingPopoverController presentPopoverFromBarButtonItem:buttonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:animated];
+    } else {
+        [self presentFromWindow];
+    }
+}
+
+- (BOOL)isVisible {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return [_presentingPopoverController isPopoverVisible];
+    }
+
+    return (_window != nil);
+
+}
+
+- (void)dismissAnimated:(BOOL)animated {
+    [self dismissViewControllerAnimated:animated completion:nil];
+}
+
 #pragma mark - Helpers
 
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
@@ -166,10 +212,20 @@
 		block();
 }
 
+#pragma mark - popover
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    if (_completionHandler)
+        _completionHandler(nil, NO);
+}
+
 #pragma mark - ActivityViewActionDelegate
 
 - (void)cancelButtonTapped {
     [self dismissViewControllerAnimated:YES completion:nil];
+
+    if (_completionHandler)
+        _completionHandler(nil, NO);
 }
 
 - (void)activityTappedAtIndex:(NSUInteger)index {
@@ -210,7 +266,6 @@
 
         [weakSelf updateGridFrame:CGSizeMake(width, height - statusBarHeight)];
     }];
-
 }
 
 #pragma mark -
@@ -230,12 +285,14 @@
 }
 
 - (BOOL)shouldAutorotate {
-   return YES;
+    return YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
-   return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ||
-                orientation != UIInterfaceOrientationPortraitUpsideDown;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return YES;
+
+    return (orientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 @end

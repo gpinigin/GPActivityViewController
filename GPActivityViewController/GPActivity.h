@@ -44,9 +44,9 @@ typedef void (^GPActivityActionHandler)(GPActivity *activity, NSDictionary *user
 
 @interface GPActivity : NSObject
 
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) NSDictionary *userInfo;
+@property (nonatomic, copy) NSDictionary *userInfo;
 
 @property (nonatomic, copy) ActivityViewCompletionHandler completionBlock;
 
