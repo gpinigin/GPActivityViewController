@@ -47,19 +47,23 @@ pod 'GPActivityViewController', :git => 'https://github.com/gpinigin/GPActivityV
 ```
 
 
-
 ##Social networks integration
+
+For social networks listed below should be set application callback, for more info see chapter "Application callback".
+
 ###Facebook
+
 * Set up **FacebookAppID** property in your info.plist file, i.e.  FacebookAppID = 12345678
 * Set up URL scheme for facebook redirect: fbFacebookAppID , where FacebookAppID - Facebook application ID
 
 ###Odnoklassniki
+
 * Set up properties **OdnoklassnikiAppID**, **OdnoklassnikiSecretKey**, **OdnoklassnikiAppKey** in your info.plist file.
 * Set up URL scheme for redirect: okOdnoklassnikiAppID , where OdnoklassnikiAppID - Odnoklassniki application ID
 
 ###Vkontakte
-* Set up **VKontakteAppID** property in your info.plist file
 
+* Set up **VKontakteAppID** property in your info.plist file
 
 ## Usage
 ### Activity controller
@@ -81,20 +85,7 @@ pod 'GPActivityViewController', :git => 'https://github.com/gpinigin/GPActivityV
                             @"url":[NSURL URLWithString:@"https://github.com/gpinigin"]};
     
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        // iPad specific
-        if (self.myPopoverController.isPopoverVisible) {
-            [self.myPopoverController dismissPopoverAnimated:YES];
-        } else {        
-            self.myPopoverController= [[UIPopoverController alloc] initWithContentViewController:controller];
-            controller.presentingPopoverController = self.myPopoverController;
-            [self.myPopoverController presentPopoverFromBarButtonItem:self.myNavigationBarButton
-                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-    } else {
-        // iPhone specific
-        [controller presentFromWindow];
-    }
+    [controller presentFromBarButton:sender animated:YES];
 ```
 
 ### Application callbacks
@@ -156,6 +147,13 @@ You can also specify predefined acitivityInfo:
    activity.userInfo = @{@"text":@"My custom activity",
                          @"url":url};
 ```
+
+## Changelog
+
+### 2.0.0
+
+- Call completion handler with nil as activityName in case of dismissing activity view;
+- Replace methods for showing activity view controller, show modally on iPhone and in popover on iPad.
 
 ##Credits
 Partially based on [REActivityViewController](https://github.com/romaonthego/REActivityViewController)
