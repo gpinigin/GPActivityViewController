@@ -132,7 +132,6 @@ NSString *const kVKEntryPoint = @"https://api.vk.com/method/";
     } else {
         NSString *token = [params objectForKey:@"access_token"];
         NSString *userId = [params objectForKey:@"user_id"];
-        NSTimeInterval expiresIn = [[params objectForKey:@"expires_in"] integerValue];
         [self setAccessToken:token];
         [self setUserId:userId];
 
