@@ -127,7 +127,7 @@
     [view addSubview:button];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 59, 100, 30)];
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
 
     if (UI_IS_IOS7()) {
