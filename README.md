@@ -21,7 +21,7 @@ Alternative to UIActivityViewController compatible with iOS5.0
 
 
 ### Requirements
-* XCode 4.4+
+* Xcode 4.4+
 * Deployment Target iOS5.0+
 * ARC
  
