@@ -52,6 +52,11 @@ NSString *const GPActivityMessage = @"GPActivityMessage";
     NSURL *url = [self.userInfo objectForKey:@"url"];
     
     MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+    if (!messageComposeViewController) {
+        [self activityDidFinish:NO];
+        return;
+    }
+
     messageComposeViewController.messageComposeDelegate = self;
     
     NSString *message = @"";
