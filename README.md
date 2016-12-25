@@ -1,7 +1,7 @@
 GPActivityViewController
 ========================
 
-Alternative to UIActivityViewController compatible with iOS5.0
+Alternative to UIActivityViewController
 
 ![iOS7 and later](images/Activities-iOS7.png)
 
