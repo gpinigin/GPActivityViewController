@@ -31,9 +31,6 @@ NSString *const GPActivityCopy = @"GPActivityCopy";
     if (self) {
         self.title = NSLocalizedStringFromTable(@"ACTIVITY_COPY", @"GPActivityViewController", @"Copy");
         NSString *imageName = @"GPActivityViewController.bundle/shareCopy";
-        if (UI_IS_IOS7()) {
-            imageName = [imageName stringByAppendingString:@"7"];
-        }
         self.image = [UIImage imageNamed:imageName];
     }
     

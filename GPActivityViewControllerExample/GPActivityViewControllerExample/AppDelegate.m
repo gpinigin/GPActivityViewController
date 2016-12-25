@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 
-#import <FacebookSDK/Facebook.h>
 #import <OdnoklassnikiMgr.h>
 #import <VkontakteMgr.h>
 
@@ -29,9 +28,6 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    if ([FBSession.activeSession handleOpenURL:url]) {
-        return YES;
-    }
 
     if ([[OdnoklassnikiMgr sharedInstance] handleOpenURL:url]) {
         return YES;

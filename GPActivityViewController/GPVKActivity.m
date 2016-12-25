@@ -33,9 +33,6 @@ NSString *const GPActivityVKontakte = @"GPActivityVKontakte";
     if (self) {
         self.title = NSLocalizedStringFromTable(@"ACTIVITY_VKONTAKTE", @"GPActivityViewController", @"VKontakte");
         NSString *imageName = @"GPActivityViewController.bundle/shareVK";
-        if (UI_IS_IOS7()) {
-            imageName = [imageName stringByAppendingString:@"7"];
-        }
         self.image = [UIImage imageNamed:imageName];
     }
 

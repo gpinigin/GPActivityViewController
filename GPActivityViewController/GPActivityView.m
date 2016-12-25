@@ -40,33 +40,18 @@
         NSUInteger cancelButtonHeight = 0;
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            if (UI_IS_IOS7()) {
-                self.backgroundColor = [UIColor colorWithWhite:244.f/255.f alpha:1.f];
-            } else {
-                UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width,
-                                                                                        frame.size.height)];
-                background.image = [[UIImage imageNamed:@"GPActivityViewController.bundle/Background"] stretchableImageWithLeftCapWidth:20 topCapHeight:60];
-                background.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-                [self addSubview:background];
-            }
-            
+            self.backgroundColor = [UIColor colorWithWhite:244/255.f alpha:1.f];
+
             _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
             _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
             [_cancelButton setTitle:NSLocalizedStringFromTable(@"BUTTON_CANCEL", @"GPActivityViewController", @"Cancel") forState:UIControlStateNormal];
 
+            UIColor *titleColor = [UIColor colorWithRed:22/255.f green:126/255.f
+                                                   blue:251/255.f alpha:1.0f];
+            [_cancelButton setTitleColor:titleColor forState:UIControlStateNormal];
+            [_cancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [_cancelButton.titleLabel setFont:[UIFont systemFontOfSize:21]];
 
-            if (!UI_IS_IOS7()) {
-                [_cancelButton setBackgroundImage:[[UIImage imageNamed:@"GPActivityViewController.bundle/Button"] stretchableImageWithLeftCapWidth:22 topCapHeight:47] forState:UIControlStateNormal];
-                [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [_cancelButton setTitleShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4] forState:UIControlStateNormal];
-                [_cancelButton.titleLabel setShadowOffset:CGSizeMake(0, -1)];
-                [_cancelButton.titleLabel setFont:[UIFont boldSystemFontOfSize:19]];
-            } else {
-                UIColor *titleColor = [UIColor colorWithRed:22.f/255.f green:126.f/255.f blue:251.f/255.f alpha:1.0];
-                [_cancelButton setTitleColor:titleColor forState:UIControlStateNormal];
-                [_cancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-                [_cancelButton.titleLabel setFont:[UIFont systemFontOfSize:21]];
-            }
 
             NSUInteger width = 270;
             NSUInteger height = 45;
@@ -102,10 +87,9 @@
         _pageControl.hidesForSinglePage = YES;
         _pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 
-        if (UI_IS_IOS7()) {
-            _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-            _pageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.9f alpha:1.f];
-        }
+        _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+        _pageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.9f alpha:1.f];
+
         
         [_pageControl addTarget:self action:@selector(pageControlValueChanged:)
                forControlEvents:UIControlEventValueChanged];
@@ -129,16 +113,8 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 59, 100, 30)];
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
-
-    if (UI_IS_IOS7()) {
-        label.textColor = [UIColor blackColor];
-        label.font = [UIFont systemFontOfSize:12];
-    } else {
-        label.textColor = [UIColor whiteColor];
-        label.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
-        label.shadowOffset = CGSizeMake(0, 1);
-        label.font = [UIFont boldSystemFontOfSize:12];
-    }
+    label.textColor = [UIColor blackColor];
+    label.font = [UIFont systemFontOfSize:12];
 
     label.text = activity.title;
 

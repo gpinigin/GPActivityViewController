@@ -21,7 +21,6 @@
 //
 
 #import "GPFacebookActivity.h"
-#import "DEFacebookComposeViewController.h"
 #import <Social/Social.h>
 
 NSString *const GPActivityFacebook = @"GPActivityFacebook";
@@ -33,9 +32,6 @@ NSString *const GPActivityFacebook = @"GPActivityFacebook";
     if (self) {
         self.title = NSLocalizedStringFromTable(@"ACTIVITY_FACEBOOK", @"GPActivityViewController", @"Facebook");
         NSString *imageName = @"GPActivityViewController.bundle/shareFacebook";
-        if (UI_IS_IOS7()) {
-            imageName = [imageName stringByAppendingString:@"7"];
-        }
         self.image = [UIImage imageNamed:imageName];
     }
 
@@ -47,34 +43,35 @@ NSString *const GPActivityFacebook = @"GPActivityFacebook";
 }
 
 - (void)performActivity {    
-    NSString *text = [self.userInfo objectForKey:@"text"];
-    NSURL *url = [self.userInfo objectForKey:@"url"];
-    UIImage *image = [self.userInfo objectForKey:@"image"];
-    
-    DEFacebookComposeViewController *composeController = [[DEFacebookComposeViewController alloc] init];
-    if (text) {
-        [composeController setInitialText:text];
-    }
-    
-    if (url) {
-        [composeController addURL:url];
-    }
-    
-    if (image) {
-        [composeController addImage:image];
-    }
-    
-    UIViewController *presentingController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    presentingController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    
     typeof(self) __weak weakSelf = self;
-    typeof(composeController) __weak weakComposer = composeController;
-    composeController.completionHandler = ^(DEFacebookComposeViewControllerResult result) {
+
+    SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+
+    typeof(controller) __weak weakComposer = controller;
+    controller.completionHandler = ^(SLComposeViewControllerResult result) {
         [weakComposer dismissViewControllerAnimated:YES completion:nil];
-        [weakSelf activityDidFinish:result == DEFacebookComposeViewControllerResultDone];
+        [weakSelf activityDidFinish:(result == SLComposeViewControllerResultDone)];
     };
-    
-    [presentingController presentViewController:composeController animated:YES completion:nil];
+
+
+    NSString *text = [self.userInfo objectForKey:@"text"];
+    UIImage *image = [self.userInfo objectForKey:@"image"];
+    NSURL *url = [self.userInfo objectForKey:@"url"];
+
+    if (text) {
+        [controller setInitialText:text];
+    }
+
+    if (image) {
+        [controller addImage:image];
+    }
+
+    if (url) {
+        [controller addURL:url];
+    }
+
+    UIViewController *presentingController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    [presentingController presentViewController:controller animated:YES completion:nil];
 }
 
 @end

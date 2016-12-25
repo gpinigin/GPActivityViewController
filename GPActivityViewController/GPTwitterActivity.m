@@ -32,9 +32,6 @@ NSString *const GPActivityTwitter = @"GPActivityTwitter";
     if (self) {
         self.title = NSLocalizedStringFromTable(@"ACTIVITY_TWITTER", @"GPActivityViewController", @"Twitter");
         NSString *imageName = @"GPActivityViewController.bundle/shareTwitter";
-        if (UI_IS_IOS7()) {
-            imageName = [imageName stringByAppendingString:@"7"];
-        }
         self.image = [UIImage imageNamed:imageName];
     }
 
@@ -47,43 +44,33 @@ NSString *const GPActivityTwitter = @"GPActivityTwitter";
 - (void)performActivity {
     typeof(self) __weak weakSelf = self;
     
-    id composeController;
-    if ([SLComposeViewController class]) {
-        composeController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        
-        typeof(composeController) __weak weakComposer = composeController;
-        ((SLComposeViewController *)composeController).completionHandler = ^(SLComposeViewControllerResult result) {
-            [weakComposer dismissViewControllerAnimated:YES completion:nil];
-            [weakSelf activityDidFinish:(result == SLComposeViewControllerResultDone)];
-        };
-    } else {
-        composeController = [[TWTweetComposeViewController alloc] init];
-        
-        typeof(composeController) __weak weakComposer = composeController;
-        ((TWTweetComposeViewController *)composeController).completionHandler = ^(TWTweetComposeViewControllerResult result) {
-            [weakComposer dismissViewControllerAnimated:YES completion:nil];
-            [weakSelf activityDidFinish:(result == TWTweetComposeViewControllerResultDone)];
-        };
-    }
-    
+    SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+
+    typeof(controller) __weak weakComposer = controller;
+    controller.completionHandler = ^(SLComposeViewControllerResult result) {
+        [weakComposer dismissViewControllerAnimated:YES completion:nil];
+        [weakSelf activityDidFinish:(result == SLComposeViewControllerResultDone)];
+    };
+
+
     NSString *text = [self.userInfo objectForKey:@"text"];
     UIImage *image = [self.userInfo objectForKey:@"image"];
     NSURL *url = [self.userInfo objectForKey:@"url"];
     
     if (text) {
-        [composeController setInitialText:text];
+        [controller setInitialText:text];
     }
     
     if (image) {
-        [composeController addImage:image];
+        [controller addImage:image];
     }
     
     if (url) {
-        [composeController addURL:url];
+        [controller addURL:url];
     }
     
     UIViewController *presentingController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [presentingController presentViewController:composeController animated:YES completion:nil];
+    [presentingController presentViewController:controller animated:YES completion:nil];
 }
 
 - (NSString *)activityType {

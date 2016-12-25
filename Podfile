@@ -1,4 +1,4 @@
-platform :ios, '5.0'
+platform :ios, '7.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
 project 'GPActivityViewControllerExample/GPActivityViewControllerExample.xcodeproj'
