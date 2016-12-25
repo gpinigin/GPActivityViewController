@@ -50,6 +50,10 @@ NSString *const GPActivityMail = @"GPActivityMail";
     NSURL *url = [self.userInfo objectForKey:@"url"];
     
     MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+    if (!mailComposeViewController) {
+        [self activityDidFinish:NO];
+        return;
+    }
     mailComposeViewController.mailComposeDelegate = self;
     
     NSString *message = @"";
