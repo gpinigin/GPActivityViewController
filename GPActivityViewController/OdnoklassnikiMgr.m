@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 //
 #import "OdnoklassnikiMgr.h"
-#import <AFNetworking.h>
+#import "AFNetworking.h"
 #import "Cocoa+Additions.h"
 
 NSString *const kOKBundleAppID = @"OdnoklassnikiAppID";

@@ -21,7 +21,7 @@
 //
 
 #import "GPOKActivity.h"
-#import <REComposeViewController.h>
+#import "REComposeViewController.h"
 #import "OdnoklassnikiMgr.h"
 
 NSString *const GPActivityOdnoklassniki = @"GPActivityOdnoklassniki";

@@ -22,7 +22,7 @@
 
 #import "VkontakteMgr.h"
 #import "Cocoa+Additions.h"
-#import <AFNetworking.h>
+#import "AFNetworking.h"
 
 NSString *const kVKBundleAppID = @"VKontakteAppID";
 NSString *const kVKTokenKeyInfo = @"kVKTokenKey:info";

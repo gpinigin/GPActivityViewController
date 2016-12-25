@@ -22,7 +22,7 @@
 
 #import "GPVKActivity.h"
 #import "VkontakteMgr.h"
-#import <REComposeViewController.h>
+#import "REComposeViewController.h"
 
 NSString *const GPActivityVKontakte = @"GPActivityVKontakte";
 
