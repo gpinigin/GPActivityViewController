@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version     = '3.0.0'
   s.authors     = { 'Gleb Pinigin' => 'gpinigin@gmail.com' }
   s.homepage    = 'https://github.com/gpinigin/GPActivityViewController'
-  s.summary     = 'Alternative to UIActivityViewController compatible with iOS5.0.'
+  s.summary     = 'Alternative to UIActivityViewController'
   s.source      = { :git => 'https://github.com/gpinigin/GPActivityViewController.git',
                     :tag => s.version.to_s }
   s.license     = { :type => "MIT", :file => "LICENSE.md" }
