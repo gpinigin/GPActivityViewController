@@ -1,6 +1,8 @@
 platform :ios, '5.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
-xcodeproj 'GPActivityViewControllerExample/GPActivityViewControllerExample.xcodeproj'
+project 'GPActivityViewControllerExample/GPActivityViewControllerExample.xcodeproj'
 
-pod 'GPActivityViewController', :path => '.'
+target 'GPActivityViewControllerExample' do
+    pod 'GPActivityViewController', :path => '.'
+end
