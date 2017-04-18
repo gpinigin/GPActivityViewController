@@ -5,7 +5,7 @@ Alternative to UIActivityViewController
 
 ![iOS7 and later](images/Activities-iOS7.png)
 
-###Supported activities
+### Supported activities
 * Facebook
 * Twitter
 * Vkontakte
@@ -46,21 +46,21 @@ pod 'GPActivityViewController', :git => 'https://github.com/gpinigin/GPActivityV
 ```
 
 
-##Social networks integration
+## Social networks integration
 
 For social networks listed below should be set application callback, for more info see chapter "Application callback".
 
-###Facebook (2.0.x Only)
+### Facebook (2.0.x Only)
 
 * Set up **FacebookAppID** property in your info.plist file, i.e.  FacebookAppID = 12345678
 * Set up URL scheme for facebook redirect: fbFacebookAppID , where FacebookAppID - Facebook application ID
 
-###Odnoklassniki
+### Odnoklassniki
 
 * Set up properties **OdnoklassnikiAppID**, **OdnoklassnikiSecretKey**, **OdnoklassnikiAppKey** in your info.plist file.
 * Set up URL scheme for redirect: okOdnoklassnikiAppID , where OdnoklassnikiAppID - Odnoklassniki application ID
 
-###Vkontakte
+### Vkontakte
 
 * Set up **VKontakteAppID** property in your info.plist file
 
@@ -147,5 +147,5 @@ You can also specify predefined acitivityInfo:
                          @"url":url};
 ```
 
-##Credits
+## Credits
 Partially based on [REActivityViewController](https://github.com/romaonthego/REActivityViewController)
