@@ -1,5 +1,5 @@
 
- Copyright (c) 2013 Gleb Pinigin (https:github.com/gpinigin)
+ Copyright (c) 2013 Gleb Pinigin (https://github.com/gpinigin)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
