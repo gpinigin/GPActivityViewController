@@ -78,9 +78,11 @@ NSString *const GPActivityOdnoklassniki = @"GPActivityOdnoklassniki";
                 [composeViewController dismissViewControllerAnimated:YES completion:nil];
                 [weakSelf activityDidFinish:YES];
             } else {
-                [[OdnoklassnikiMgr sharedInstance] retrieveAccessToken:@[@"VALUABLE ACCESS"] completion:^() {
-                    NSString *title = NSLocalizedStringFromTable(@"BUTTON_POST", @"GPActivityViewController", @"Post");
-                    composeViewController.navigationItem.rightBarButtonItem.title = title;
+                [[OdnoklassnikiMgr sharedInstance] retrieveAccessToken:@[@"VALUABLE ACCESS"] completion:^(BOOL completed) {
+                    if (completed) {
+                        NSString *title = NSLocalizedStringFromTable(@"BUTTON_POST", @"GPActivityViewController", @"Post");
+                        composeViewController.navigationItem.rightBarButtonItem.title = title;
+                    }
                 }];
             }
         }
