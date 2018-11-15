@@ -1,4 +1,5 @@
-
+# Dev
+- Updated dependency AFNetworking 3.0
 
 # 3.0.0
 

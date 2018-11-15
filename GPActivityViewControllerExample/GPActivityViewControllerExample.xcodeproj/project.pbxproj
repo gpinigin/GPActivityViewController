@@ -150,7 +150,6 @@
 				A762DB331737726900F51D94 /* Frameworks */,
 				A762DB341737726900F51D94 /* Resources */,
 				D58C821D06104F18BED29B3F /* [CP] Copy Pods Resources */,
-				6D13315B915A3BEBC8A15997 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -169,6 +168,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Gleb Pinigin";
+				TargetAttributes = {
+					A762DB351737726900F51D94 = {
+						DevelopmentTeam = ZKDJ365RUV;
+					};
+				};
 			};
 			buildConfigurationList = A762DB311737726900F51D94 /* Build configuration list for PBXProject "GPActivityViewControllerExample" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -206,30 +210,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6D13315B915A3BEBC8A15997 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-GPActivityViewControllerExample/Pods-GPActivityViewControllerExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D58C821D06104F18BED29B3F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-GPActivityViewControllerExample/Pods-GPActivityViewControllerExample-resources.sh",
+				"${PODS_ROOT}/../GPActivityViewController/Resources/GPActivityViewController.bundle",
+				"${PODS_ROOT}/../GPActivityViewController/Resources/en.lproj",
+				"${PODS_ROOT}/../GPActivityViewController/Resources/ru.lproj",
+				"${PODS_ROOT}/REComposeViewController/REComposeViewController/REComposeViewController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GPActivityViewController.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ru.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/REComposeViewController.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -241,13 +239,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GPActivityViewControllerExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -317,7 +318,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -342,7 +343,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -354,10 +355,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C9F9BE9E1359B7689AABBD4 /* Pods-GPActivityViewControllerExample.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = ZKDJ365RUV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GPActivityViewControllerExample/GPActivityViewControllerExample-Prefix.pch";
 				INFOPLIST_FILE = "GPActivityViewControllerExample/GPActivityViewControllerExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -367,10 +369,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 745A5B7D02D7FA85205AE05B /* Pods-GPActivityViewControllerExample.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = ZKDJ365RUV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GPActivityViewControllerExample/GPActivityViewControllerExample-Prefix.pch";
 				INFOPLIST_FILE = "GPActivityViewControllerExample/GPActivityViewControllerExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

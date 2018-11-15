@@ -32,7 +32,7 @@
 
 + (instancetype)sharedInstance;
 - (BOOL)handleOpenURL:(NSURL *)url;
-- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(void))block;
+- (void)retrieveAccessToken:(NSArray *)permissions completion:(void (^)(BOOL))completion;
 - (void)shareURL:(NSString *)urlString description:(NSString *)description;
 
 @end

@@ -20,6 +20,6 @@ Pod::Spec.new do |s|
   s.ios.frameworks = 'QuartzCore', 'MessageUI', 'Twitter'
   s.ios.weak_frameworks = 'Social'
 
-  s.dependency 'AFNetworking', '~> 1.3.4'
+  s.dependency 'AFNetworking', '~> 3.0'
   s.dependency 'REComposeViewController', '~> 2.0.3'
 end
